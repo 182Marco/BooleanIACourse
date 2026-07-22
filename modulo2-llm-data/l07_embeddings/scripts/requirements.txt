@@ -1,0 +1,11 @@
+# L19 — Embeddings
+python-dotenv
+numpy
+openai
+
+# Backend locale: sentence-transformers porta con sé torch.
+# Su Linux, per evitare i pacchetti CUDA (~2 GB inutili in aula), installa
+# PRIMA la versione CPU di torch:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+# Su Windows e macOS il pip normale scarica già la versione CPU.
+sentence-transformers

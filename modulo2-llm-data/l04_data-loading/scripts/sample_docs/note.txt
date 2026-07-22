@@ -1,0 +1,10 @@
+Promemoria riunione team — 28/06/2026
+
+Presenti: Giulia, Marco, Sara.
+
+- Il rilascio della versione 2 è previsto per metà luglio.
+- Marco prepara la demo per il cliente entro venerdì.
+- Sara verifica i bug ancora aperti su staging.
+- Da decidere: se aggiungere il supporto multi-lingua già in v2 o rimandarlo.
+
+Prossima riunione: lunedì 5 luglio, ore 10:00.

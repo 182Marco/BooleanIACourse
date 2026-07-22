@@ -1,0 +1,17 @@
+# L18 — Lab Data Engineering · dipendenze (Python 3.10+)
+# python3 -m venv .venv && source .venv/bin/activate
+# pip install -r requirements.txt
+
+# Loader nativi (aikit, riuso da L16-L17)
+pypdf                 # PDF
+python-docx           # DOCX
+beautifulsoup4        # HTML
+markdown-it-py        # Markdown
+
+# Loader gestito — LlamaParse via REST (niente SDK: è solo un'API)
+httpx                 # upload / poll / risultato
+python-dotenv         # LLAMA_CLOUD_API_KEY dal .env
+
+# Solo per RIGENERARE il dataset sporco (make_dataset.py) — non serve al lab
+reportlab             # genera i PDF (lineare, tabella, scansione, corrotto)
+pillow                # l'immagine della "scansione"

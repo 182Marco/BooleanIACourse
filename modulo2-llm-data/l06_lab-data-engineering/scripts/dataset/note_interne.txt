@@ -1,0 +1,29 @@
+NOTE INTERNE - ufficio acquisti (bozza, NON distribuire)
+aggiornate al 30/06 da S.C.
+
+*** PRIORITÀ DI LUGLIO ***
+
+1) MIGRAZIONE GESTIONALE - verificare la qualità dei dati PRIMA della
+   migrazione di settembre. Bianchi dice che dall'assessment escono fuori
+   parecchi problemi: anagrafiche doppie, allegati mancanti, encoding
+   ballerino nei file più vecchi (roba del 2015-2018).
+   -> chiedere a NuvolaTech il piano di ROLLBACK dettagliato (non è nel
+      contratto, farlo aggiungere come allegato!!)
+   -> l'inventario è da rifare: più di metà delle schede è incompleta
+
+2) CONTRATTO NUVOLATECH - bozza ricevuta il 28/06, girata a legale.
+   Occhio all'art. 3: la fatturazione anticipata non ci era stata detta
+   a voce. Sentire Ricciardi (cell. finisce con 882, chiedere a Rota).
+
+3) LISTINO 2027 - i fornitori del bambù hanno preannunciato rincari del
+   7-9%. Se confermato, il listino 2027 va rivisto a ottobre e non a
+   gennaio. Parlarne al prossimo direttivo.
+
+4) VARIE
+   - rimborsi maggio: SBLOCCATI il 19/06 (Galli)
+   - preventivi pulizie: ne mancano ancora DUE, sollecitare
+   - stampante piano 2: in garanzia, il tecnico passa lunedì
+
+Nota di M. Rota (a voce, 27/06): la società è già in ritardo sul
+cronoprogramma; se entro venerdì non c'è l'ok della direzione sul
+budget rivisto, l'attività slitta a settembre. URGENTISSIMO.

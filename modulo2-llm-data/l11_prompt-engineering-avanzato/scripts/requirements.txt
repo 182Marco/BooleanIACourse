@@ -1,0 +1,5 @@
+# L23 — Prompt Engineering Avanzato
+python-dotenv
+numpy
+openai
+chromadb

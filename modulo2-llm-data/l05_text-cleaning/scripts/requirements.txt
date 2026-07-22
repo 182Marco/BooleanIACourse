@@ -1,0 +1,14 @@
+# L17 — Text Cleaning · dipendenze (Python 3.12)
+# python3.12 -m venv .venv && source .venv/bin/activate
+# pip install -r requirements.txt
+
+# clean.py usa solo la standard library.
+# Queste dipendenze servono ai loader riusati da L16 (per caricare i sample):
+pypdf                 # PDF
+beautifulsoup4        # HTML
+markdown-it-py        # Markdown
+python-docx           # DOCX
+
+# Banco di prova ask() — il chatbot della L15/L16 (richiede OPENAI_API_KEY)
+openai
+python-dotenv

@@ -1,0 +1,5 @@
+# L24 — Lab Prompt & Search
+python-dotenv
+numpy
+openai
+chromadb

@@ -1,0 +1,4 @@
+# L26 — Extraction & Parsing
+python-dotenv
+openai
+pydantic

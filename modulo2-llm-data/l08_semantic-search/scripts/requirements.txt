@@ -1,0 +1,11 @@
+# L20 — Semantic Search (brute-force)
+python-dotenv
+numpy
+openai
+
+# Scommentate la riga qui sotto SOLO se il vostro corpus di L19 è col backend
+# "local" (controllate corpus_meta.json → "backend"): la query va embeddata
+# con lo STESSO modello del corpus. Su Linux, per evitare i pacchetti CUDA
+# (~2 GB), installate PRIMA la versione CPU di torch:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+# sentence-transformers

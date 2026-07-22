@@ -1,0 +1,4 @@
+# L25 — Structured Output
+python-dotenv
+openai
+pydantic
