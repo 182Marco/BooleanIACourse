@@ -1,0 +1,10 @@
+# Modulo 2 · Lezione 15 — Progetto Modulo 2
+python-dotenv
+openai
+pydantic
+numpy
+chromadb
+pypdf
+python-docx
+beautifulsoup4
+markdown-it-py
