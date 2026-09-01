@@ -1,0 +1,10 @@
+# Modulo 3 · Lezione 2 — RAG End-to-End (from scratch)
+python-dotenv
+openai
+pydantic
+numpy
+chromadb
+pypdf
+python-docx
+beautifulsoup4
+markdown-it-py

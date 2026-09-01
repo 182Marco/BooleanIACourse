@@ -1,0 +1,10 @@
+# Modulo 3 · Lezione 1 — RAG Architecture
+python-dotenv
+openai
+pydantic
+numpy
+chromadb
+pypdf
+python-docx
+beautifulsoup4
+markdown-it-py

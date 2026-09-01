@@ -25,7 +25,7 @@ Materiale didattico (script + slide) del **Master in AI Engineering** di [Boolea
 | Modulo 2 — LLM & Data | 14 | 2h | Extraction & Parsing |
 | Modulo 2 — LLM & Data | 15 | 4h | Progetto Modulo 2 |
 | Modulo 3 — RAG | 1 | 2h | RAG Architecture |
-| Modulo 3 — RAG | 2 | 2h | Basic RAG Implementation |
+| Modulo 3 — RAG | 2 | 2h | RAG End-to-End (from scratch) |
 | Modulo 3 — RAG | 3 | 4h | Chat History & Memory |
 | Modulo 3 — RAG | 4 | 2h | Advanced Retrieval I |
 | Modulo 3 — RAG | 5 | 2h | Advanced Retrieval II |
