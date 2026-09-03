@@ -1,9 +1,15 @@
-# L17 — Text Cleaning & Pre-processing · guida agli script
+# Modulo 2 · Lezione 5 — Text Cleaning & Pre-processing · guida agli script
 
-Lezione di **live coding** (🎤): il docente costruisce dal vivo `aikit/clean.py` e
-mostra il **before/after** su tre documenti *reali* e sporchi, poi verifica col
-**chatbot** (`ask()`) che la risposta migliora sul testo pulito. Niente notebook,
-solo script `.py`. Il cleaning gira **senza chiave**; solo `ask.py` chiama il modello.
+Infrasettimanale (📊 + 🎤 + ⌨️, 2h). Il documento della serata è un manuale
+LumaDesk in PDF: estratto com'è fa rispondere **male** al modello, perché il
+piede di pagina ricorrente parla di un altro prodotto e le sue parole
+somigliano alla domanda più di quelle del contenuto vero. Gli studenti scrivono
+gli step che lo ripuliscono, in **un solo file**: `working/clean.py`.
+
+Niente notebook, solo script `.py`.
+
+Il `check_lab05.py` è **strumento del docente**, fuori dal percorso studente: il
+"fatto quando" degli esercizi è l'output osservabile del main.
 
 ## Ruolo di ogni file
 
@@ -12,60 +18,41 @@ live-coda · ⌨️ da completare dagli studenti · 📄 documenti/dati di esemp
 
 | File | Ruolo | Cosa fa |
 |---|---|---|
-| `requirements.txt` | 🧰 | Dipendenze (loader di L16 + `openai`/`dotenv` per il banco di prova). |
-| `.env.example` | 🧰 | Template per `OPENAI_API_KEY` (serve solo a `ask.py`). |
-| `download_samples.py` | 🧰 | (Ri)scarica i 3 documenti reali in `sample_docs/`. |
-| `aikit/__init__.py` | 🧰 | Espone `load`, `Document`, `clean`. Il toolkit che cresce lezione dopo lezione. |
-| `aikit/loaders/` | 🧰 | I loader di **L16** (riuso) + `txt.py`. Non si riscrivono oggi. |
-| `aikit/clean.py` | 🎤 | **Il cuore della lezione.** Gli step di cleaning (`str→str`) + il runner `clean()` + **le `PIPELINES` per tipo di file** (`.txt`/`.pdf`/`.html`). Per un documento nuovo si tocca solo qui. |
-| `ask.py` | 🎤 | **L'unico runner.** Senza argomenti: before/after (offline). Con una domanda: confronta la risposta del **chatbot** (L15/L16) su testo **sporco vs pulito**. |
-| `llm_client.py` · `pricing.py` | 🧰 | Client LLM + costi, **riuso da L15/L16**. Dipendenze di `ask.py`, non si riscrivono. |
-| `esercizio/mia_pulizia.py` | ⌨️ | **Stub studenti**: implementare `remove_urls` e agganciarla alla pipeline. |
-| `esercizio/soluzione.py` | 🎤 | Soluzione di riferimento (docente). |
-| `esercizio/check.py` | ⌨️ | Verifica `[OK]/[FAIL]` per requisito, **senza chiave API**. |
-| `sample_docs/frankenstein.txt` | 📄 | Gutenberg #84 — boilerplate + righe a ~70 char. |
-| `sample_docs/arxiv_1905.00075.pdf` | 📄 | arXiv — hyphenation + header ricorrenti + n° pagina. |
-| `sample_docs/wikipedia_nlp.html` | 📄 | Wikipedia — sezioni di coda + note + whitespace. |
+| `requirements.txt` | 🧰 | Dipendenze. `reportlab` serve solo a rigenerare il PDF. |
+| `.env.example` | 🧰 | Template per `OPENAI_API_KEY` — la **stessa chiave** di Modulo 2 · Lezione 1-4. |
+| `CONSEGNA.md` | 🧰 | Promemoria operativo della serata per gli studenti. |
+| `scaffolding/aikit/loaders.py` | 🧰 | I loader **scritti a Modulo 2 · Lezione 4**, promossi nel toolkit come modulo piatto. Non si tocca: si importa. |
+| `scaffolding/aikit/llm_client.py`, `pricing.py` | 🧰 | Eredità di Modulo 2 · Lezione 3, invariati. |
+| `scaffolding/ask.py` | 🧰 | Il banco di prova, già scritto: `rispondi()` fa la domanda al modello (`temperature=0`, così due risposte diverse vengono dal testo e non dal caso), `mostra_confronto()` stampa i numeri del prima/dopo. |
+| `scaffolding/make_dataset.py` | 🧰 | Genera `dataset/manuale-lumadesk.pdf`. Il docstring documenta la trappola e perché scatta. Non serve in aula. |
+| `scaffolding/check_lab05.py` | 🧰 | **Strumento del docente**: non a cascata, non distruttivo, verifica esiti. `--solutions` per la regressione, `--live` per il giro vero (~$0.001), `--manifest` dopo un rework. |
+| `dataset/manuale-lumadesk.pdf` | 📄 | Il banco di prova: 4 pagine, piede ricorrente della Mini, numeri di pagina, righe spezzate. |
+| `dataset/frankenstein.txt` | 📄 | Gutenberg #84 — boilerplate di testa e coda, righe a ~70 caratteri. Il caso "libro". |
+| `dataset/arxiv_1905.00075.pdf` | 📄 | arXiv — sillabazione (15 parole spezzate) e header ricorrente su 7 pagine. Il caso "paper". |
+| `working/clean.py` | 🎤⌨️ | **L'unico file della serata.** TODO 1-3 col docente, TODO 4-6 da soli. Il main gira a stadi: ogni step stampa appena è finito. |
+| `solutions/clean.py` | 🎤 | La versione completa, stesso nome e stessi import: è **una** soluzione possibile, non l'unica. |
 
 ## Setup
 
 ```bash
-python3.12 -m venv .venv && source .venv/bin/activate
+cd scripts
+python3 -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-python download_samples.py     # opzionale: i sample sono già in sample_docs/
+cp .env.example .env
 ```
 
 ## Come si prova
 
 ```bash
-python ask.py                                 # before/after sui 3 doc (offline)
-python ask.py sample_docs/frankenstein.txt    # un doc, con estratto prima/dopo (offline)
-python ask.py sample_docs/wikipedia_nlp.html "che cos'è l'NLP?"   # chatbot: sporco vs pulito (serve la chiave)
+python working/clean.py                          # il giro degli studenti
+python solutions/clean.py                        # il riferimento completo
+python scaffolding/check_lab05.py --solutions    # docente: regressione, zero costi
+python scaffolding/check_lab05.py --live         # docente: il giro vero (~$0.001)
+python scaffolding/make_dataset.py               # rigenera il PDF del manuale
 ```
 
-Per un **documento nuovo**: aggiungi la funzione-step in `aikit/clean.py` e registrala
-nella mappa `PIPELINES`. `ask.py` la usa in automatico — nient'altro da toccare.
+## Le idee da trasmettere
 
-## L'idea da trasmettere
-
-Una pipeline di cleaning **non è un framework**: è una **lista di funzioni pure
-`str → str`** applicate in ordine (`clean(text, steps)`). Documenti diversi =
-pipeline diverse (vedi `PIPELINES` in `aikit/clean.py`): un `.txt` di Gutenberg si
-riflow-a, un PDF si de-sillaba, una pagina web si de-boilerplat-a. Il criterio per
-decidere cosa è rumore: *«se dovessi rispondere io alla domanda, questo testo mi
-servirebbe?»*.
-
-Ordine di costruzione consigliato in aula (`clean.py`):
-
-1. `normalize_whitespace`, `normalize_unicode`, `strip_control_chars` — le basi.
-2. `reflow_paragraphs` → **Frankenstein** (7742 → ~1600 righe).
-3. `dehyphenate`, `remove_repeated_lines`, `remove_page_numbers` → **PDF arXiv**.
-4. `remove_citation_markers`, `drop_sections` → **Wikipedia**.
-
-## Caso-limite reale (usalo, non nasconderlo)
-
-Sul PDF, `remove_repeated_lines(3)` toglie 6 delle 7 occorrenze dell'header
-"Published as a conference paper at ICLR 2019", ma **ne resta una**: su pagina 1
-il numero di pagina è incollato all'header (`"1 Published as a conference…"`),
-riga *unica* che sfugge al conteggio. Messaggio: il **cleaning è euristico**, non
-esiste la pipeline perfetta.
+Sono nel materiale di conduzione della lezione (`conduzione-docente.md`, nella
+cartella della lezione), insieme ai numeri misurati e alle soglie: non stanno
+qui perché questa cartella arriva agli studenti.

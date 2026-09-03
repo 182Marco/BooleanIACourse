@@ -1,14 +1,16 @@
-# L17 — Text Cleaning · dipendenze (Python 3.12)
-# python3.12 -m venv .venv && source .venv/bin/activate
+# Modulo 2 · Lezione 5 — Text Cleaning & Pre-processing
+# python3 -m venv .venv && source .venv/bin/activate
 # pip install -r requirements.txt
 
-# clean.py usa solo la standard library.
-# Queste dipendenze servono ai loader riusati da L16 (per caricare i sample):
+# I loader ereditati da Modulo 2 · Lezione 4 (aikit/loaders.py)
 pypdf                 # PDF
+python-docx           # DOCX
 beautifulsoup4        # HTML
 markdown-it-py        # Markdown
-python-docx           # DOCX
 
-# Banco di prova ask() — il chatbot della L15/L16 (richiede OPENAI_API_KEY)
+# Il banco di prova: la stessa domanda sul testo sporco e su quello pulito
 openai
 python-dotenv
+
+# Solo per RIGENERARE il manuale Lumen (scaffolding/make_dataset.py) — non serve in aula
+reportlab

@@ -1,0 +1,13 @@
+ordine,data,cliente,prodotto,quantita,importo_eur,stato
+ORD-2026-0412,2026-03-02,Studio Ferri,LumaDesk Pro,2,1336.00,consegnato
+ORD-2026-0413,2026-03-02,Marta Colombo,LumaDesk Mini,1,399.00,consegnato
+ORD-2026-0418,2026-03-04,Nordvent S.p.A.,LumaDesk Compact,12,6588.00,consegnato
+ORD-2026-0421,2026-03-05,Luca Bertani,Piano in bambu 160x80,1,189.00,reso
+ORD-2026-0427,2026-03-07,Studio Ferri,SRV-03 estensione garanzia,2,178.00,attivo
+ORD-2026-0430,2026-03-09,Alessia Rinaldi,LumaDesk Pro,1,668.00,in transito
+ORD-2026-0433,2026-03-10,Cooperativa Aurora,LumaDesk Compact,6,3294.00,in preparazione
+ORD-2026-0435,2026-03-11,Davide Ferraro,Braccio monitor doppio,2,118.00,consegnato
+ORD-2026-0441,2026-03-13,Nordvent S.p.A.,Ricambio centralina,1,89.00,in garanzia
+ORD-2026-0444,2026-03-14,Silvia Marchetti,LumaDesk Mini,1,399.00,annullato
+ORD-2026-0447,2026-03-16,Officina Blu,LumaDesk Pro,4,2672.00,in preparazione
+ORD-2026-0450,2026-03-17,Paolo Venturi,Tappetino antifatica,1,49.00,consegnato

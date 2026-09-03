@@ -1,4 +1,4 @@
-# Scheda della caccia al tier — Lab L18 (playground)
+# Scheda della caccia al tier — il giro nel playground
 
 Per ognuno dei 5 file "candidati LlamaParse" del tuo triage: caricalo nel
 playground di cloud.llamaindex.ai, provalo su **almeno 2 tier**, e annota se il
@@ -16,7 +16,7 @@ agentic 10 · agentic_plus 45 crediti/pagina.
 | `listino_prezzi.pdf` | tabella alla rinfusa | | | | |
 | `contratto_fornitura.docx` | 2 tabelle sparite | | | | |
 
-Domande per lo show & tell:
+Domande per il debrief:
 
 1. C'è un file dove il tier più economico basta? E uno dove NON basta?
 2. Passare al tier superiore, dove ha cambiato davvero il risultato — e dove

@@ -1,8 +1,8 @@
-# L18 — Lab Data Engineering · dipendenze (Python 3.10+)
+# Modulo 2 · Lezione 6 — Lab Data Engineering · dipendenze (Python 3.10+)
 # python3 -m venv .venv && source .venv/bin/activate
 # pip install -r requirements.txt
 
-# Loader nativi (aikit, riuso da L16-L17)
+# Loader nativi (aikit, riuso da Modulo 2 · Lezione 4-5)
 pypdf                 # PDF
 python-docx           # DOCX
 beautifulsoup4        # HTML

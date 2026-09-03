@@ -1,104 +1,78 @@
-# L16 — Data Loading · materiale docente
+# Modulo 2 · Lezione 4 — Data Loading · guida agli script
 
-Lezione di **live coding** (🎤): il docente costruisce dal vivo il modulo
-`loaders/` e il banco di prova `ask()`. Niente notebook, solo script `.py`. Questo
-è il **codice di riferimento** (completo e testato) che il docente replica a
-schermo; gli studenti scrivono un solo pezzo nell'esercizio (`.txt`/`.csv`).
+Infrasettimanale (📊 + 🎤 + ⌨️, 2h): si insegna al codice a leggere i file.
+Il docente live-coda quattro loader — PDF, DOCX, HTML, Markdown — e la porta
+unica `load()` che li smista; poi gli studenti aggiungono da soli `.txt` e
+`.csv`. Tutto in **un unico file**, `working/loaders.py`. Niente notebook,
+solo script `.py`.
 
-## Struttura
+È la lezione in cui nascono tre cose che restano per tutto il modulo: il
+toolkit `aikit/`, la struttura a tre cartelle `scaffolding/` · `working/` ·
+`solutions/`, e il criterio di "fatto" basato sull'**output osservabile**
+invece che su un check da lanciare.
 
-```
-scripts/
-├── README.md            # questa guida (docente)
-├── requirements.txt
-├── .env.example         # OPENAI_API_KEY (solo per ask())
-├── loaders/             # IL CUORE — un file per formato, costruito dal vivo
-│   ├── __init__.py          # espone load() + Document
-│   ├── base.py              # la dataclass Document (text + metadata)
-│   ├── pdf.py               # load_pdf      (pypdf)
-│   ├── docx.py              # load_docx     (python-docx)
-│   ├── html.py              # load_html     (BeautifulSoup) — toglie il noise
-│   ├── markdown.py          # load_markdown (markdown-it-py)
-│   └── dispatch.py          # load() — smista per estensione
-├── llm_client.py        # = client della L15 (riuso, non si riscrive)
-├── pricing.py           # = pricing della L15 (dipendenza di llm_client)
-├── ask.py               # ask(doc, domanda) — banco di prova + CLI per le prove
-├── make_samples.py      # (ri)genera i binari bilancio.pdf / cv.docx
-├── sample_docs/         # documenti di esempio — un CONTENUTO diverso per formato
-│   ├── bilancio.pdf         # relazione annuale (generato) — caso "report"
-│   ├── cv.docx              # curriculum (generato) — caso "documento Word"
-│   ├── ricetta.html         # ricetta CON noise (nav/footer/newsletter/script)
-│   ├── readme.md            # README di un tool CLI
-│   ├── note.txt             # per l'esercizio (.txt)
-│   └── clienti.csv          # per l'esercizio (.csv)
-└── esercizio/           # il pezzo che scrivono gli STUDENTI
-    ├── txt_csv.py           # stub da completare (load_txt / load_csv)
-    └── soluzione_txt_csv.py # soluzione (riferimento docente)
-```
+Il `check_lab04.py` è **strumento del docente**, fuori dal percorso studente:
+serve per la regressione dei materiali (`--solutions`) e per la diagnosi
+rapida di uno studente bloccato. Verifica i risultati leggendo il dataset,
+istantaneo, zero rete e zero costi.
 
-> **Perché un package `loaders/` e non file piatti** (la L15 usava file piatti):
-> qui i moduli sono 5 e mappano 1:1 sui formati, ed è esattamente come le slide
-> presentano la cosa (un `loaders/` con un loader per formato). Spezzare per
-> formato rende ovvio dove si aggiunge il prossimo.
+## Ruolo di ogni file
 
-## Come fare le prove
+Legenda: 🧰 ambiente/toolkit riusabile · 🎤 codice di riferimento che il docente
+live-coda · ⌨️ da completare dagli studenti · 📄 documenti/dati di esempio.
 
-Lo strumento è `ask.py`, usato da riga di comando:
+| File | Ruolo | Cosa fa |
+|---|---|---|
+| `requirements.txt` | 🧰 | Le quattro librerie di parsing (`pypdf`, `python-docx`, `beautifulsoup4`, `markdown-it-py`) + `openai`/`python-dotenv`; `reportlab` serve solo a rigenerare il dataset. |
+| `.env.example` | 🧰 | Template per `OPENAI_API_KEY` — la **stessa chiave di Modulo 2 · Lezione 1 – Modulo 2 · Lezione 3**, nessuna registrazione nuova. |
+| `CONSEGNA.md` | 🧰 | Promemoria operativo della serata per gli studenti: setup, i sette TODO, il "fatto quando" di ciascuno. |
+| `scaffolding/aikit/__init__.py` | 🧰 | Il docstring del package: che cosa il toolkit ha accumulato finora e perché da oggi ha un nome. |
+| `scaffolding/aikit/llm_client.py` | 🧰 | Il client di Modulo 2 · Lezione 3, **verbatim**: cambia la cartella, non il codice (l'unica riga diversa è l'import di `pricing`, ora modulo del package). **Non si tocca.** |
+| `scaffolding/aikit/pricing.py` | 🧰 | I prezzi e il calcolo del costo di Modulo 2 · Lezione 2, **verbatim**. |
+| `scaffolding/ask.py` | 🧰 | Il banco di prova, già scritto: `ask()` fa la domanda al modello con tutto il testo nel prompt (`temperature=0`, così a ogni giro esce la stessa risposta); `mostra()` e `rispondi()` sono gli helper di stampa usati dal main. |
+| `dataset/relazione-annuale.pdf` | 📄 | Relazione annuale di Lumen S.r.l., **3 pagine** con header e footer ripetuti e la numerazione "pagina N di 3": è quello che rende visibile un Document per pagina. |
+| `dataset/verbale-consiglio.docx` | 📄 | Verbale di CdA in paragrafi e titoli — il caso "documento Word". |
+| `dataset/faq-garanzia.html` | 📄 | La pagina di supporto del sito: il contenuto in `<main>`, e intorno promo, menu, sidebar e footer che parlano **dello stesso argomento con numeri diversi**. È il documento del momento chiave. |
+| `dataset/guida-lumadesk.md` | 📄 | Guida rapida in Markdown: titoli, liste, tabella, codice, link. |
+| `dataset/note-supporto.txt` · `ordini.csv` | 📄 | I due file dell'esercizio studenti. |
+| `working/loaders.py` | 🎤⌨️ | **L'unico file della serata.** TODO 1-5 col docente (`load_pdf`, `load_docx`, `load_html`, `load_markdown`, `load`); TODO 6-7 da soli (`load_txt`, `load_csv` + l'aggancio a `load()`). Il main gira a ogni stadio: ogni TODO finito stampa il suo risultato, gli altri dicono «ancora da fare». |
+| `solutions/loaders.py` | 🎤 | **Non distribuito agli studenti.** La versione completa dello stesso file (stesso nome, stessi import). Le docstring dei TODO 1-5 contengono **la frase da dire mentre si scrive**: il docente può narrarle leggendole. |
+| `scaffolding/check_lab04.py` | 🧰 | **Strumento del docente**: `[OK]/[FAIL]` sui risultati, mai sulle firme interne; ogni TODO in isolamento; non scrive niente su disco; segnala se dataset o scaffolding sono stati modificati. `--solutions` verifica le soluzioni. Non compare nel percorso studente. |
+| `scaffolding/make_dataset.py` | 🧰 | (Ri)genera i sei documenti del `dataset/`, che è già versionato. Ogni trappola è documentata nel docstring. |
+| `scaffolding/confronto_html.py` | 🧰 | Da qui escono **i numeri del momento chiave** in slide: caratteri con e senza `decompose()`, quali affermazioni del boilerplate finiscono alla lettera nel prompt, e con `--live` le risposte vere del modello nei due casi. |
+
+## Setup
 
 ```bash
-python3.12 -m venv .venv && source .venv/bin/activate
+cd scripts
+python3 -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-python make_samples.py        # genera bilancio.pdf / cv.docx (una volta)
-
-# carica un documento e mostra metadata + testo — NESSUNA chiave necessaria
-python ask.py sample_docs/bilancio.pdf
-
-# + la risposta del modello — serve OPENAI_API_KEY nel .env
-python ask.py sample_docs/bilancio.pdf "di quanto è cresciuto il fatturato?"
-python ask.py sample_docs/cv.docx      "che ruolo ricopre Giulia?"
-python ask.py sample_docs/ricetta.html "quali ingredienti servono?"
-python ask.py sample_docs/readme.md    "a cosa serve MeteoCLI?"
+cp .env.example .env          # dentro: la stessa chiave OpenAI di Modulo 2 · Lezione 1 – Modulo 2 · Lezione 3
 ```
 
-Senza domanda, `ask.py` gira **offline**: carica il file e ne mostra `Document` +
-metadata + anteprima (il client del modello si crea solo se passi una domanda).
-Ogni formato ha un **contenuto diverso**, così le prove sono varie.
+> **Nota per chi distribuisce (docente):** agli studenti la cartella arriva
+> **senza** `.env`, `.venv` e cache (git non li versiona), e **senza**
+> `solutions/`. Il venv si crea in `scripts/`, non più dentro una cartella
+> `starter/` come a Modulo 2 · Lezione 3: è il primo dei quattro cambi di
+> abitudine che la slide di setup dichiara in aula.
 
-## L'arco della live demo (mappa sulle slide)
+## Come si prova
 
-1. **`base.py` — il `Document`.** Si parte dal dolore (forme diverse a valle), poi
-   la dataclass minima `text + metadata`. *(slide 6–8)*
-2. **`ask.py` — il banco di prova, SUBITO.** Riusa `LLMClient` di L15. È naive di
-   proposito: tutto il testo nel prompt. Lo si richiama dopo ogni loader. *(slide 11)*
-3. **I loader, uno alla volta, ognuno seguito da `ask()`** *(slide 12–17)*:
-   - `pdf.py` → pagina per pagina, `page` nei metadata. `ask()` funziona.
-   - `docx.py` → join dei paragrafi. Stessa interfaccia, cambia solo il loader.
-   - `html.py` → **il momento chiave**: chiedi gli ingredienti della `ricetta.html`;
-     con tutto il testo `ask()` ci infila menu e newsletter, togliendo
-     `nav`/`footer`/`script` migliora. "Pulire bene" è L17. *(seme)*
-   - `markdown.py` → render → testo.
-   - `dispatch.py` → `load()` li smista tutti per estensione.
-4. **Esercizio studenti** *(slide 18)*: `esercizio/txt_csv.py` su `note.txt` /
-   `clienti.csv`, verifica con `ask()`.
-5. **Il muro** *(slide 20)*: prova `ask()` mentale su 300 pagine / 500 doc → non
-   ci sta nel contesto, costa troppo → motiva il resto del modulo.
+Tutto si lancia dalla cartella `scripts/`:
 
-## Note didattiche
+```bash
+python working/loaders.py                        # il giro della serata (~$0.002 a lancio)
+python scaffolding/check_lab04.py                # verifica working/: istantanea, zero costi
+python scaffolding/check_lab04.py --solutions    # per il docente: verifica le soluzioni
+python scaffolding/confronto_html.py             # i numeri del boilerplate, zero rete
+python scaffolding/confronto_html.py --live      # 10 chiamate vere, ~$0.004 a lancio
+python scaffolding/make_dataset.py               # rigenera il dataset (non serve in aula)
+```
 
-- **Il loading non ha bisogno dell'AI per essere mostrato:** `ask.py <file>` senza
-  domanda gira senza chiave. L'AI (passare una domanda) è il *perché*, non il *cosa*.
-- **HTML con noise è voluto:** `sample_docs/ricetta.html` ha `nav`/`footer`/`script`
-  e una newsletter apposta, così il punto "il noise confonde il modello" si vede
-  dal vivo. Per mostrarlo, commenta la riga `for tag in soup(NOISE)` in
-  `loaders/html.py` e confronta l'output di `ask()` prima/dopo.
-- **`llm_client.py`/`pricing.py` non si riscrivono:** vengono dalla L15. Qui si
-  riusano per costruire `ask()` in poche righe.
-- **`import docx` dentro `loaders/docx.py`** prende il pacchetto installato
-  python-docx (import assoluto), non il file stesso (`loaders.docx`).
+## Dove sta il resto
 
-## Stack (testato)
-
-Python 3.10+ (`list[Document]` ok da 3.9). `pypdf`, `python-docx`,
-`beautifulsoup4`, `markdown-it-py`; `openai` + `python-dotenv` per `ask()`;
-`reportlab` solo per `make_samples.py`. Modello `gpt-4.1-mini`, Responses API
-(come L12/L15).
+Le **idee da trasmettere** coi numeri della serata, il **percorso in aula**
+blocco per blocco e la **conduzione della live demo** (che cosa dire, quali
+risposte aspettarsi, come diagnosticare uno studente bloccato) stanno in
+`conduzione-docente.md`, nella cartella della lezione: contengono le risposte
+dell'esercizio e non si distribuiscono.

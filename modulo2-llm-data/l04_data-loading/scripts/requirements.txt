@@ -1,16 +1,17 @@
-# L16 — Data Loading · dipendenze per le demo (Python 3.12)
-# python3.12 -m venv .venv && source .venv/bin/activate
-# pip install -r requirements.txt
+# Modulo 2 · Lezione 4 — Data Loading
+#   cd scripts
+#   python3 -m venv .venv && source .venv/bin/activate
+#   pip install -r requirements.txt
 
-# Loader nativi — uno per formato
+# Un loader per formato, una libreria nativa ciascuno
 pypdf                 # PDF
 python-docx           # DOCX
-beautifulsoup4        # HTML (e ripulitura dell'output Markdown)
+beautifulsoup4        # HTML (e il testo dell'HTML reso dal Markdown)
 markdown-it-py        # Markdown
 
-# Banco di prova ask() — riusa il client della L15
-openai                # chiamate reali all'API (richiede OPENAI_API_KEY)
+# Il banco di prova ask() — riusa il client di Modulo 2 · Lezione 3
+openai
 python-dotenv
 
-# Solo per rigenerare i sample binari (make_samples.py) — non serve alla demo
-reportlab             # genera sample_docs/report.pdf
+# Solo per rigenerare il dataset (scaffolding/make_dataset.py): non serve in aula
+reportlab             # relazione-annuale.pdf

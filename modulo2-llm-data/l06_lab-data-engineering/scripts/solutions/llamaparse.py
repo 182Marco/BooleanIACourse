@@ -18,7 +18,7 @@ Il **tier** è la manopola qualità/costo — la stessa che hai visto nel playgr
   agentic_plus   45 crediti/pagina   i casi disperati
 
 Serve LLAMA_CLOUD_API_KEY nel `.env` (free tier ~10k crediti/mese). Occhio: il
-documento VIAGGIA NEL CLOUD — è il trade-off dello show & tell.
+documento VIAGGIA NEL CLOUD — un trade-off da dire esplicitamente in aula.
 """
 import os
 import sys
@@ -30,7 +30,7 @@ from dotenv import load_dotenv
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "scaffolding"))   # aikit vive lì
 
-from aikit.loaders.base import Document
+from aikit import Document
 
 load_dotenv()
 
@@ -53,6 +53,8 @@ def _api_key() -> str:
 def load_llamaparse(path: str, tier: str = "cost_effective",
                     timeout: int = 240) -> list[Document]:
     """Parsa `path` con LlamaParse al `tier` scelto → `[Document]` (markdown)."""
+    # si valida PRIMA di toccare la rete: un tier sbagliato non deve
+    # costare una chiamata (né un upload)
     if tier not in TIERS:
         raise ValueError(f"tier {tier!r} non valido: scegli tra {sorted(TIERS)}")
     headers = {"Authorization": f"Bearer {_api_key()}"}
@@ -78,6 +80,8 @@ def load_llamaparse(path: str, tier: str = "cost_effective",
                       params={"expand": "markdown_full"}, timeout=30)
         r.raise_for_status()
         dati = r.json()
+        # lo status può stare annidato in dati["job"] o al livello alto,
+        # a seconda dello stadio del job: le gestiamo entrambe
         status = (dati.get("job") or {}).get("status") or dati.get("status")
         if status == "COMPLETED":
             break

@@ -19,7 +19,7 @@ Il **tier** è la manopola qualità/costo — la stessa del playground:
   agentic_plus   45 crediti/pagina   i casi disperati
 
 Serve LLAMA_CLOUD_API_KEY nel `.env` (free tier ~10k crediti/mese). Occhio: il
-documento VIAGGIA NEL CLOUD — è il trade-off dello show & tell.
+documento VIAGGIA NEL CLOUD — un trade-off da dire esplicitamente in aula.
 """
 import os
 import sys
@@ -31,7 +31,7 @@ from dotenv import load_dotenv
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "scaffolding"))   # aikit vive lì
 
-from aikit.loaders.base import Document
+from aikit import Document
 
 load_dotenv()
 
@@ -55,25 +55,15 @@ def load_llamaparse(path: str, tier: str = "cost_effective",
                     timeout: int = 240) -> list[Document]:
     """Parsa `path` con LlamaParse al `tier` scelto → `[Document]` (markdown).
 
-    TODO 4 — si scrive INSIEME al docente (tu replica nel tuo starter).
-    I tre passi, con `httpx` e header `{"Authorization": f"Bearer {_api_key()}"}`:
+    🎤 TODO 4 — NON si fa da soli: si scrive INSIEME al docente, replicando
+    dal vivo (è il blocco di live coding, vedi la slide di switch). I tre
+    passi (upload → job col tier → poll fino a COMPLETED) sono nel docstring
+    in cima al file; l'autenticazione è un header Bearer con `_api_key()` su
+    ogni richiesta. Due contratti da rispettare:
 
-    0. valida il tier: se non è in TIERS, solleva ValueError.
-    1. upload — POST f"{BASE}/api/v1/files" con
-         files={"upload_file": (nome_file, open(path, "rb"))}
-       Il file id sta nel campo "id" del JSON di risposta.
-    2. job — POST f"{BASE}/api/v2/parse" con
-         json={"file_id": file_id, "tier": tier, "version": "latest"}
-       L'id del job sta nel campo "id".
-    3. poll — in loop: GET f"{BASE}/api/v2/parse/{job_id}" con
-         params={"expand": "markdown_full"}
-       leggi lo status (può stare in dati["job"]["status"] o dati["status"]);
-       se "COMPLETED" esci, se "FAILED"/"CANCELLED" solleva RuntimeError,
-       altrimenti `time.sleep(2)` e riprova rispettando `timeout` (è un job
-       asincrono: decine di secondi sono normali).
-       Il testo sta nel campo "markdown_full".
-
-    Ritorna: [Document(markdown, {"source": path, "type": "llamaparse",
-                                  "tier": tier, "format": "markdown"})]
+    - un tier che non sta in TIERS → ValueError, prima di qualunque altra
+      cosa (controllo della chiave compreso)
+    - ritorna [Document(markdown, {"source": path, "type": "llamaparse",
+                                   "tier": tier, "format": "markdown"})]
     """
     raise NotImplementedError("TODO 4: load_llamaparse")

@@ -1,15 +1,15 @@
-"""aikit — il toolkit che cresce lezione dopo lezione.
+"""aikit — il toolkit del corso, cresce di un pezzo a lezione.
 
-L15: client + prompts + conversation (chatbot).
-L16: loaders/ (leggere file eterogenei → Document).
-L17: clean (ripulire il testo grezzo prima di chunk/embed).   ← questa lezione
+    Modulo 2 · Lezione 3   llm_client.py, pricing.py   parlare col modello
+    Modulo 2 · Lezione 4   loaders.py                  portare dentro i documenti
+    Modulo 2 · Lezione 5   clean.py                    ripulire il testo estratto
 
-    from aikit import load, Document, clean
+Quello che c'è dentro non si tocca: si importa. Oggi lo si mette alla prova su
+documenti veri — e si vede dove non basta.
 
-Ogni lezione aggiunge un mattone riusabile: al Progetto Modulo 2 gli studenti
-hanno già in mano l'intera pipeline load → clean → chunk → embed → search.
+    from aikit import load, Document
+    from aikit.clean import normalize_whitespace, remove_repeated_lines
 """
-from .clean import clean, clean_file, pipeline_for
 from .loaders import Document, load
 
-__all__ = ["load", "Document", "clean", "clean_file", "pipeline_for"]
+__all__ = ["Document", "load"]
