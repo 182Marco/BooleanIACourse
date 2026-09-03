@@ -1,22 +1,19 @@
-"""loaders.py — punto di partenza DOPO il live coding: TODO 1-5 già scritti (🎤), TODO 6-7 da fare (⌨️).
+"""loaders.py — versione completa (riferimento del docente).
 
-Copia di working/loaders.py con la parte del docente completata: se siete rimasti
-indietro col live coding, partite da qui per l'esercizio.
-
-Un solo file per tutta la serata. I primi cinque pezzi si scrivono **col
-docente** (🎤), gli ultimi due li scrivete **voi** (⌨️).
-
-    python working/loaders.py
-
-Il main gira anche a metà strada: ogni pezzo finito stampa il suo risultato,
-quelli non ancora scritti dicono «ancora da fare» e il programma prosegue.
+Stesso nome e stessi import di `working/loaders.py`: cambia solo la cartella.
+I TODO 1-5 sono il codice che il docente scrive a schermo dal vivo, con accanto
+la frase da dire mentre lo scrive; i TODO 6-7 sono una delle soluzioni valide
+dell'esercizio (per il CSV la granularità è una scelta, non c'è una risposta
+giusta unica).
 """
+import csv
 import sys
 
 from dataclasses import dataclass, field
 from pathlib import Path
 
 import docx
+
 from bs4 import BeautifulSoup
 from markdown_it import MarkdownIt
 from pypdf import PdfReader
@@ -130,6 +127,10 @@ def load(path):
         return load_html(path)
     if ext in (".md", ".markdown"):
         return load_markdown(path)
+    if ext == ".txt":
+        return load_txt(path)
+    if ext == ".csv":
+        return load_csv(path)
     raise ValueError(f"Formato non supportato: {ext}")
 
 
@@ -137,20 +138,31 @@ def load(path):
 def load_txt(path):
     """Il file di testo semplice, in Document.
 
-    Restituisce dei Document con i metadata giusti.
+    Una delle soluzioni valide: il testo c'è già, serve solo leggerlo e
+    metterlo nel contenitore con i metadata giusti.
     """
-    raise NotImplementedError
+    testo = Path(path).read_text(encoding="utf-8")
+    return [Document(testo, {"source": str(path), "type": "txt"})]
 
 
 # --------------------------------------------------------------- TODO 7 · voi ⌨️
 def load_csv(path):
-    """Il CSV, in Document.
+    """Il CSV, in Document — qui una riga per Document.
 
-    Restituisce dei Document con i metadata giusti. Quanti? Uno per riga o uno
-    per tutto il file: la scelta è vostra — pensate a che cosa ci farete dopo,
-    quando questi Document andranno in un motore di ricerca.
+    Una delle soluzioni valide, e la scelta da discutere al reveal: una riga =
+    un Document rende ogni ordine un risultato di ricerca a sé (utile quando si
+    cerca «l'ordine di Nordvent»), ma perde la vista d'insieme sul file. Chi ha
+    fatto un solo Document con tutte le righe ha l'effetto opposto: risponde
+    bene a «quanti ordini sono consegnati?» e male a «che cosa ha ordinato
+    Nordvent?». Nessuna delle due è sbagliata: dipende dalle domande.
     """
-    raise NotImplementedError
+    with open(path, encoding="utf-8", newline="") as f:
+        righe = list(csv.DictReader(f))
+    docs = []
+    for numero, riga in enumerate(righe):
+        testo = "\n".join(f"{campo}: {valore}" for campo, valore in riga.items())
+        docs.append(Document(testo, {"source": str(path), "type": "csv", "row": numero + 1}))
+    return docs
 
 
 if __name__ == "__main__":

@@ -1,18 +1,11 @@
-"""clean.py — punto di partenza DOPO il live coding: TODO 1-3 già scritti (🎤), TODO 4-6 da fare (⌨️).
+"""clean.py — ripulire il testo estratto, uno step alla volta. (VERSIONE COMPLETA)
 
-Copia di working/clean.py con la parte del docente completata: se siete rimasti
-indietro col live coding, partite da qui per l'esercizio.
-
-Il file della serata: si lavora qui, dall'alto in basso.
+Riferimento del docente: è UNA soluzione possibile, non l'unica. Gli studenti
+possono arrivarci con codice diverso e va benissimo.
 
 Ogni step è una funzione normale: prende una stringa, restituisce una stringa.
-Le ricette in fondo le mettono in fila.
-
-    python working/clean.py     ← lancialo dopo OGNI todo: stampa quello che c'è
-
-TODO 1-3  🎤  col docente
-TODO 4-5  ⌨️  da soli — il 4 è quello che cambia la risposta
-TODO 6    ⌨️  metteteli nella ricetta del PDF
+Le ricette in fondo le mettono in fila. Niente registry, niente funzioni che
+restituiscono funzioni: si legge dall'alto in basso.
 """
 import re
 import sys
@@ -26,9 +19,6 @@ sys.path.insert(0, str(SCRIPTS / "scaffolding"))
 from aikit import load                                            # noqa: E402
 from ask import mostra_confronto, rispondi                        # noqa: E402
 
-# Il documento della serata. Se lo cambiate per provare gli altri due del
-# dataset/, RIMETTETELO su manuale-lumadesk.pdf prima dei TODO 4-6: il
-# "fatto quando" della serata (120 kg) vale solo su questo documento.
 DOCUMENTO = SCRIPTS / "dataset" / "manuale-lumadesk.pdf"
 DOMANDA = "Qual è la portata del piano?"
 
@@ -77,18 +67,43 @@ def remove_repeated_lines(text):
 
     Sono impaginazione, non contenuto — e possono contenere fatti su ALTRE cose.
     """
-    raise NotImplementedError("TODO 4: remove_repeated_lines")
+    conteggio = Counter()
+    for riga in text.split("\n"):
+        riga = riga.strip()
+        if riga:
+            conteggio[riga] += 1
+
+    da_togliere = set()
+    for riga, quante in conteggio.items():
+        if quante >= 3 and len(riga) <= 80:
+            da_togliere.add(riga)
+
+    tenute = []
+    for riga in text.split("\n"):
+        if riga.strip() not in da_togliere:
+            tenute.append(riga)
+    return "\n".join(tenute)
 
 
 def remove_page_numbers(text):
     """Toglie le righe che sono solo un numero di pagina ('7', 'pagina 2 di 4')."""
-    raise NotImplementedError("TODO 5: remove_page_numbers")
+    tenute = []
+    for riga in text.split("\n"):
+        if re.fullmatch(r"\s*(pagina\s+)?\d+(\s+di\s+\d+)?\s*", riga, re.I):
+            continue
+        tenute.append(riga)
+    return "\n".join(tenute)
 
 
 # ------------------------------------------------------- le ricette
 def pulisci_pdf(text):
     """Un PDF impaginato: mobilia di pagina, righe spezzate, sillabazione."""
-    raise NotImplementedError("TODO 6: pulisci_pdf")
+    text = remove_repeated_lines(text)
+    text = remove_page_numbers(text)
+    text = dehyphenate(text)
+    text = normalize_whitespace(text)
+    text = reflow_paragraphs(text)
+    return text
 
 
 def pulisci_txt(text):
@@ -110,34 +125,7 @@ def pulisci(path, text):
 
 if __name__ == "__main__":
     sporco = "\n".join(d.text for d in load(str(DOCUMENTO)))
-    print(f"documento: {DOCUMENTO.name} — {len(sporco)} caratteri estratti\n")
-
-    # Ogni step si prova DA SOLO, appena scritto, sul testo grezzo: qui non
-    # stiamo costruendo la pipeline, stiamo guardando un pezzo alla volta.
-    # Nella ricetta (TODO 6) l'ordine sarà un altro, e conta.
-    # Gli step non ancora fatti lo dicono e si va avanti: non serve finire
-    # tutto per vedere qualcosa.
-    for numero, step in enumerate(
-        [normalize_whitespace, dehyphenate, reflow_paragraphs,
-         remove_repeated_lines, remove_page_numbers], start=1
-    ):
-        try:
-            dopo = step(sporco)          # sempre dal testo GREZZO, non in cascata
-            print(f"TODO {numero} · {step.__name__:22s} "
-                  f"{len(sporco):6d} → {len(dopo):6d} caratteri · "
-                  f"{len(sporco.splitlines()):4d} → {len(dopo.splitlines()):4d} righe")
-            print(f"           «LumaDesk Mini» nel testo: {dopo.count('LumaDesk Mini')}x"
-                  f" · «120 kg»: {dopo.count('120 kg')}x")
-            print(f"           {dopo.strip()[:88]!r}…")
-        except NotImplementedError:
-            print(f"TODO {numero} · {step.__name__:22s} ancora da fare")
-
-    print()
-    try:
-        pulito = pulisci(DOCUMENTO, sporco)
-    except NotImplementedError:
-        print("TODO 6 · la ricetta del PDF è ancora da scrivere")
-        raise SystemExit(0)
+    pulito = pulisci(DOCUMENTO, sporco)
 
     print("### Il documento, prima e dopo")
     mostra_confronto(sporco, pulito, spia="80 kg")
