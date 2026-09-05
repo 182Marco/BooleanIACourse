@@ -33,7 +33,7 @@ Le lezioni pubblicate prima dell'introduzione dei due branch (settembre 2026) ha
 | Modulo 2 — LLM & Data | 15 | 4h | Progetto Modulo 2 |
 | Modulo 3 — RAG | 1 | 2h | RAG Architecture |
 | Modulo 3 — RAG | 2 | 2h | RAG End-to-End (from scratch) |
-| Modulo 3 — RAG | 3 | 4h | Chat History & Memory |
+| Modulo 3 — RAG | 3 | 4h | Lab: RAG Conversazionale (memoria & sessioni) |
 | Modulo 3 — RAG | 4 | 2h | Advanced Retrieval I |
 | Modulo 3 — RAG | 5 | 2h | Advanced Retrieval II |
 | Modulo 3 — RAG | 6 | 4h | Lab RAG |
