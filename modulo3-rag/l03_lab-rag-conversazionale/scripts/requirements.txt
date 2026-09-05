@@ -1,0 +1,13 @@
+# Modulo 3 · Lezione 3 — Lab: RAG Conversazionale (memoria & sessioni)
+# Le stesse di Modulo 3 · Lezione 2, più tiktoken (il conteggio dei token di
+# Modulo 2 · Lezione 3, per il budget della storia).
+python-dotenv
+openai
+pydantic
+numpy
+chromadb
+tiktoken
+pypdf
+python-docx
+beautifulsoup4
+markdown-it-py
