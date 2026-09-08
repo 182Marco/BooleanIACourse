@@ -1,0 +1,12 @@
+# Modulo 3 · Lezione 4 — Advanced Retrieval I: Hybrid Search
+# Le stesse di Modulo 3 · Lezione 2, più rank-bm25 (l'indice keyword di stasera).
+python-dotenv
+openai
+pydantic
+numpy
+chromadb
+rank-bm25
+pypdf
+python-docx
+beautifulsoup4
+markdown-it-py
