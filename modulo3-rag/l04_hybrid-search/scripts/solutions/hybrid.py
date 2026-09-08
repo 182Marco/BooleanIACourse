@@ -1,11 +1,5 @@
 """hybrid.py — la ricerca per parole (BM25) accanto a quella per significato, fuse con RRF.
 
-PUNTO DI PARTENZA PER L'ESERCIZIO: questo file è la copia di working/hybrid.py
-con le funzioni 1-2 (codice spiegato: costruisci_indice_bm25, cerca_bm25)
-già scritte, come arrivano in aula. I TODO 3-4 (rrf, cerca_hybrid) sono da
-fare. Se il tuo working/hybrid.py si è rotto, riparti da qui. La versione
-completa è nel branch `soluzioni`.
-
 rag.recupera() (Modulo 3 · Lezione 2, in aikit/) cerca solo per
 SIGNIFICATO: embedding della domanda, coseno con i chunk. Su un codice
 («Cosa è successo nel ticket TCK-1152?») il significato non aiuta: TCK-1152
@@ -124,7 +118,14 @@ def rrf(liste, k):
     Ogni chunk (riconosciuto dal suo "id", uguale in tutte le liste) vale 1 / (CONFIG["rrf_costante"] + posizione) in ogni lista
     in cui compare (posizione a partire da 1), e i contributi si sommano.
     Ritorna i k chunk con la somma più alta, con "score" = la somma."""
-    raise NotImplementedError  # TODO 3
+    somme = {}
+    visti = {}
+    for lista in liste:
+        for posizione, chunk in enumerate(lista, start=1):
+            somme[chunk["id"]] = somme.get(chunk["id"], 0) + 1 / (CONFIG["rrf_costante"] + posizione)
+            visti[chunk["id"]] = chunk
+    migliori = sorted(somme, key=somme.get, reverse=True)[:k]
+    return [{**visti[cid], "score": somme[cid]} for cid in migliori]
 
 
 # ------------------------------------------------------------- TODO 4 · ⌨️
@@ -132,7 +133,9 @@ def cerca_hybrid(query, k):
     """La ricerca ibrida: CONFIG["candidati"] chunk dal semantico
     (rag.recupera) e altrettanti da BM25 (cerca_bm25), fusi con rrf().
     Ritorna i k chunk in testa alla fusione."""
-    raise NotImplementedError  # TODO 4
+    semantici = rag.recupera(query, CONFIG["candidati"])
+    keyword = cerca_bm25(query, CONFIG["candidati"])
+    return rrf([semantici, keyword], k)
 
 
 # ------------------------------------------------- helper di stampa (dati)
