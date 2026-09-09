@@ -1,11 +1,5 @@
 """rerank.py — il secondo stadio: riordinare i candidati leggendo domanda e chunk insieme.
 
-PUNTO DI PARTENZA PER L'ESERCIZIO: questo file è la copia di working/rerank.py
-con la funzione 1 (codice spiegato: rerank_cohere) già scritta, come arriva in
-aula. I TODO 2-3 (rerank_llm, cerca_due_stadi) sono da fare. Se il tuo
-working/rerank.py si è rotto, riparti da qui. La versione completa è nel
-branch `soluzioni`.
-
 hybrid.cerca_hybrid() (Modulo 3 · Lezione 4, da stasera in aikit/) mette il
 chunk giusto in top-3 su tutte le query con un codice, ma non sempre primo:
 su «Cosa copre SRV-02?» il listino è secondo, dietro la garanzia SRV-03, e
@@ -122,7 +116,26 @@ def rerank_llm(query, chunks):
     indice o saltarne uno: nel risultato ogni chunk deve tornare una volta
     sola, e tutti. Stampa i token usati: risposta.usage.input_tokens e
     output_tokens."""
-    raise NotImplementedError  # TODO 2
+    elenco = ""
+    for i, c in enumerate(chunks):
+        elenco += f"[{i}] {c['testo']}\n\n"
+    prompt = (f"Domanda: {query}\n\nPassaggi numerati:\n\n{elenco}"
+              "Ordina TUTTI i passaggi dal più al meno utile per rispondere alla domanda. "
+              "Restituisci gli indici in quell'ordine, ognuno una sola volta.")
+    risposta = client.responses.parse(model=CONFIG["modello_llm"], input=prompt, text_format=Ordine)
+    print(f"  [llm] {risposta.usage.input_tokens} token in, {risposta.usage.output_tokens} out")
+
+    ordine = []
+    for i in risposta.output_parsed.indici:       # solo indici validi, una volta sola
+        if 0 <= i < len(chunks) and i not in ordine:
+            ordine.append(i)
+    for i in range(len(chunks)):                  # se il modello ne ha saltato qualcuno, in coda
+        if i not in ordine:
+            ordine.append(i)
+    riordinati = []
+    for posizione, i in enumerate(ordine):
+        riordinati.append({**chunks[i], "score": float(len(chunks) - posizione)})
+    return riordinati
 
 
 # ------------------------------------------------------------- TODO 3 · ⌨️
@@ -131,7 +144,12 @@ def cerca_due_stadi(query, k_largo, k_finale, backend):
     k_largo), secondo stadio rerank_cohere() o rerank_llm() a seconda di
     backend ("cohere" oppure "llm"). Ritorna i primi k_finale chunk
     riordinati."""
-    raise NotImplementedError  # TODO 3
+    candidati = hybrid.cerca_hybrid(query, k_largo)
+    if backend == "cohere":
+        riordinati = rerank_cohere(query, candidati)
+    else:
+        riordinati = rerank_llm(query, candidati)
+    return riordinati[:k_finale]
 
 
 # ------------------------------------------------- helper di stampa (dati)
