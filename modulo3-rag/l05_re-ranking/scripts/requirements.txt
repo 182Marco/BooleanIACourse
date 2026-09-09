@@ -1,0 +1,13 @@
+# Modulo 3 · Lezione 5 — Advanced Retrieval II: Re-ranking
+# Le stesse di Modulo 3 · Lezione 4, più cohere (il reranker di stasera).
+python-dotenv
+openai
+pydantic
+numpy
+chromadb
+rank-bm25
+cohere
+pypdf
+python-docx
+beautifulsoup4
+markdown-it-py
