@@ -1,14 +1,8 @@
-"""vectorstore.py — il punto di partenza DOPO il quick start col docente.
+"""vectorstore.py — il corpus Lumen dentro un vector DB (ChromaDB).
 
-È la copia di working/vectorstore.py con la parte del docente già dentro:
-TODO 1 (apri_collection) e il quick start nel main sono FATTI. Restano a
-voi il Lab 1 (TODO 2-3: carica_corpus_nel_db, search), il Lab 2 (TODO 4-5:
-search_filtrata e le prove CRUD in coda al main) e l'eventuale TODO 6.
-
-Serve a chi è rimasto indietro durante il live coding: si riparte da qui,
-senza la soluzione degli esercizi. Si lancia come il vostro:
-
-    python working/vectorstore.py
+Versione COMPLETA (riferimento docente) di working/vectorstore.py: stessi
+nomi, stessi import. Il main segue la giornata nell'ordine: quick start
+(live coding), Lab 1, Lab 2. Negli esercizi il come sta agli studenti.
 """
 import json
 import sys
@@ -28,7 +22,7 @@ DATASET = SCRIPTS / "dataset"
 CHROMA_DIR = SCRIPTS / "chroma"             # qui il DB vive su disco
 
 
-# ------------------------------------------ TODO 1 · fatto col docente 🎤 ✔
+# --------------------------------------------------- TODO 1 · col docente 🎤
 def apri_collection():
     """La collection 'lumen' su disco: la crea la prima volta, poi la riapre."""
     client = chromadb.PersistentClient(path=str(CHROMA_DIR))
@@ -40,40 +34,67 @@ def apri_collection():
 
 # ----------------------------------------------------------- TODO 2 · voi ⌨️
 def carica_corpus_nel_db(collection):
-    """Upsert dei 48 doc di Modulo 2 · Lezione 7: id, testo, embedding dall'npz, metadata tipo.
+    """Upsert dei 48 doc di Modulo 2 · Lezione 7 (id, testo, embedding dall'npz, metadata tipo).
 
-    Gli embedding sono quelli GIÀ CALCOLATI di corpus_embeddings.npz, passati
-    espliciti (mai l'embedder di default del DB); l'ordine giusto è in
-    corpus_meta.json → "ids" (del meta qui servono solo "ids" e "backend";
-    il tipo di ogni doc sta nel jsonl). I tre file di dataset/ rileggeteli
-    QUI dentro: la funzione si basta da sola, come search(). Restituisce il
-    backend del corpus, che serve per embeddare le query nello stesso spazio.
+    Restituisce il backend del corpus (corpus_meta.json), che serve per
+    embeddare le query nello stesso spazio.
     """
-    raise NotImplementedError("TODO 2: carica_corpus_nel_db")
+    vectors = np.load(DATASET / "corpus_embeddings.npz")["vectors"]
+    meta = json.loads((DATASET / "corpus_meta.json").read_text(encoding="utf-8"))
+
+    per_id = {}
+    for riga in (DATASET / "corpus_lumen.jsonl").read_text(encoding="utf-8").splitlines():
+        if riga.strip():
+            doc = json.loads(riga)
+            per_id[doc["id"]] = doc
+    docs = [per_id[doc_id] for doc_id in meta["ids"]]   # stesso ordine dei vettori
+
+    collection.upsert(                                  # upsert = insert-o-sostituisci
+        ids=[d["id"] for d in docs],
+        documents=[d["testo"] for d in docs],
+        embeddings=vectors,                             # espliciti: MAI l'embedder di default
+        metadatas=[{"tipo": d["tipo"]} for d in docs],
+    )
+    return meta["backend"]
 
 
 # ----------------------------------------------------------- TODO 3 · voi ⌨️
 def search(query, k):
-    """I k doc più simili alla query, chiesti al DB. Risultati come a Modulo 2 · Lezione 8.
-
-    Ogni risultato è un dict {"id", "tipo", "testo", "score"}: la query va
-    embeddata col backend del corpus. Collection e backend qui dentro non
-    arrivano dai parametri: potete riaprirli/rileggerli DENTRO la funzione
-    (apri_collection() e corpus_meta.json — è quello che fa anche il vostro
-    search.py di Modulo 2 · Lezione 8 col corpus). Il DB risponde in DISTANZE (cosine): lo
-    score di Modulo 2 · Lezione 8 è 1 - distanza.
-    """
-    raise NotImplementedError("TODO 3: search")
+    """I k doc più simili alla query, chiesti al DB. Risultati come a Modulo 2 · Lezione 8."""
+    collection = apri_collection()
+    backend = json.loads((DATASET / "corpus_meta.json").read_text(encoding="utf-8"))["backend"]
+    q = embed([query], backend=backend)[0]              # lo STESSO spazio del corpus
+    ris = collection.query(query_embeddings=[q], n_results=k)
+    # Chroma risponde per LISTE di query (se ne possono mandare più di una
+    # insieme): ris["ids"][0] sono gli id della NOSTRA, unica, query —
+    # da qui il [0] davanti a ogni [i].
+    risultati = []
+    for i in range(len(ris["ids"][0])):
+        risultati.append({
+            "id": ris["ids"][0][i],
+            "tipo": ris["metadatas"][0][i]["tipo"],
+            "testo": ris["documents"][0][i],
+            "score": 1 - ris["distances"][0][i],        # il DB parla in DISTANZE
+        })
+    return risultati
 
 
 # ----------------------------------------------------------- TODO 4 · voi ⌨️
 def search_filtrata(query, k, tipo):
-    """Come search(), ma solo tra i doc di quel tipo.
-
-    Il filtro sui metadata è un parametro di collection.query:
-    where={"tipo": ...}.
-    """
-    raise NotImplementedError("TODO 4: search_filtrata")
+    """Come search(), ma solo tra i doc di quel tipo (where={"tipo": ...})."""
+    collection = apri_collection()
+    backend = json.loads((DATASET / "corpus_meta.json").read_text(encoding="utf-8"))["backend"]
+    q = embed([query], backend=backend)[0]
+    ris = collection.query(query_embeddings=[q], n_results=k, where={"tipo": tipo})
+    risultati = []
+    for i in range(len(ris["ids"][0])):                 # [0] = la nostra unica query
+        risultati.append({
+            "id": ris["ids"][0][i],
+            "tipo": ris["metadatas"][0][i]["tipo"],
+            "testo": ris["documents"][0][i],
+            "score": 1 - ris["distances"][0][i],
+        })
+    return risultati
 
 
 # ------------------------------------------------- già scritta: la stampa 🖨
@@ -125,40 +146,60 @@ if __name__ == "__main__":
 
     # — Lab 1 · TODO 2-3: il corpus completo nel DB, poi le tre query fianco
     #   a fianco col brute-force di Modulo 2 · Lezione 8.
-    try:
-        backend = carica_corpus_nel_db(collection)
-    except NotImplementedError as err:
-        print(f"[--] ancora da scrivere — {err}")
-        raise SystemExit(0)
+    backend = carica_corpus_nel_db(collection)
     print(f"caricato tutto il corpus: {collection.count()} documenti (backend={backend})")
 
     for query in (QUERY_FACILE, QUERY_GENERICA, QUERY_DOPPIONI):
         print(f"\n=== {query!r} · k={K}")
-        try:
-            print("dal DB:")
-            stampa(search(query, K))
-        except NotImplementedError as err:
-            print(f"  [--] ancora da scrivere — {err}")
-            break
+        print("dal DB:")
+        stampa(search(query, K))
         print("brute-force di Modulo 2 · Lezione 8 (aikit):")
         stampa(bruteforce.search(query, K))
 
     # — Lab 2 · TODO 4: la stessa query, con e senza filtro
     print(f"\n=== con e senza filtro · {QUERY_DOPPIONI!r}")
-    try:
-        print("senza filtro:")
-        stampa(search(QUERY_DOPPIONI, K))
-        for tipo in ("faq", "ticket", "recensione"):
-            print(f"solo {tipo}:")
-            stampa(search_filtrata(QUERY_DOPPIONI, K, tipo))
-    except NotImplementedError as err:
-        print(f"  [--] ancora da scrivere — {err}")
+    print("senza filtro:")
+    stampa(search(QUERY_DOPPIONI, K))
+    for tipo in ("faq", "ticket", "recensione"):
+        print(f"solo {tipo}:")
+        stampa(search_filtrata(QUERY_DOPPIONI, K, tipo))
 
-    # — Lab 2 · TODO 5, le prove CRUD: da qui in giù scrivete VOI.
-    #   delete di un doc che sta in top-3 — collection.delete(ids=[...]) —
-    #   poi ri-query: sparito? Quindi l'update fatto bene: nuovo testo,
-    #   ri-embed con embed(), upsert con lo STESSO id.
+    # — Lab 2 · TODO 5, le prove CRUD: delete, poi l'update fatto bene
+    print(f"\n=== delete: faq-02 era in testa a {QUERY_FACILE!r} — sparisce")
+    collection.delete(ids=["faq-02"])
+    stampa(search(QUERY_FACILE, K))
 
-    # — Esercizio extra (SOLO se il docente lo lancia) · il 49° documento:
-    #   una voce nuova del corpus scritta da voi — embed + upsert con un id
-    #   nuovo e il tipo giusto; la vostra query la trova? il filtro la rispetta?
+    print("\n=== update: faq-02 torna ma parla d'altro → ri-embed + upsert, stesso id")
+    nuovo_testo = ("Posso ritirare l'ordine in negozio? Sì: il ritiro in showroom "
+                   "a Milano è gratuito, su appuntamento, entro 7 giorni dall'ordine.")
+    # il DB non si accorge dei testi cambiati: l'embedding lo ricalcoliamo NOI
+    collection.upsert(
+        ids=["faq-02"],
+        documents=[nuovo_testo],
+        embeddings=embed([nuovo_testo], backend=backend),
+        metadatas=[{"tipo": "faq"}],
+    )
+    print(f"per {QUERY_FACILE!r} non esce più:")
+    stampa(search(QUERY_FACILE, K))
+    print("per 'posso ritirare in negozio?' invece:")
+    stampa(search("posso ritirare in negozio?", K))
+
+    # — Esercizio extra (SOLO se il docente lo lancia) · il 49° documento
+    print("\n=== extra: il 49° documento — una FAQ che mancava")
+    nuova_faq = ("Posso pagare a rate? Sì: al checkout trovi il pagamento in 3 rate "
+                 "senza interessi con carta; sopra i 500 euro anche in 12 rate.")
+    collection.upsert(
+        ids=["faq-13"],                                # id NUOVO: è un insert
+        documents=[nuova_faq],
+        embeddings=embed([nuova_faq], backend=backend),
+        metadatas=[{"tipo": "faq"}],
+    )
+    print(f"ora i documenti sono {collection.count()}")
+    print("la trova anche con parole diverse dal testo:")
+    stampa(search("si può pagare un po' alla volta?", K))
+    print("col filtro sbagliato invece non esce:")
+    stampa(search_filtrata("si può pagare un po' alla volta?", K, "ticket"))
+    collection.delete(ids=["faq-13"])
+
+    # ripristino: il DB torna identico al corpus, per rilanci puliti
+    carica_corpus_nel_db(collection)
