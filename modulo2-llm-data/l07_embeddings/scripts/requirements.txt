@@ -1,4 +1,4 @@
-# L19 — Embeddings
+# Modulo 2 · Lezione 7 — Embeddings
 python-dotenv
 numpy
 openai

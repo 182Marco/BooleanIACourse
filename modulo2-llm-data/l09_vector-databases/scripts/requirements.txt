@@ -1,10 +1,10 @@
-# L21 — Vector Databases
+# Modulo 2 · Lezione 9 — Vector Databases
 python-dotenv
 numpy
 openai
 chromadb
 
-# Scommentate la riga qui sotto SOLO se il vostro corpus di L19 è col backend
+# Scommentate la riga qui sotto SOLO se il vostro corpus di Modulo 2 · Lezione 7 è col backend
 # "local" (controllate corpus_meta.json → "backend"): la query va embeddata
 # con lo STESSO modello del corpus. Su Linux, per evitare i pacchetti CUDA
 # (~2 GB), installate PRIMA la versione CPU di torch:

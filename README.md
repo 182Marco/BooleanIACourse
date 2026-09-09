@@ -6,6 +6,7 @@ Materiale didattico (script + slide) del **Master in AI Engineering** di [Boolea
 
 - **`main`** è il branch da cui partire. Per ogni lezione contiene gli script di partenza (`working/`) e, in `solutions/`, **solo la parte scritta dal docente in live coding**, già completata: i TODO dell'esercizio sono ancora da fare. Serve a chi è rimasto indietro col live coding e vuole partire dall'esercizio con la base giusta.
 - **`soluzioni`** contiene lo stesso materiale con le `solutions/` **complete**, esercizio compreso. Si consulta dopo aver provato da soli.
+- Se una lezione non ha live coding (è tutta esercizio), su `main` la cartella `solutions/` **non compare**: per quella lezione le soluzioni stanno solo su `soluzioni`.
 
 Le lezioni pubblicate prima dell'introduzione dei due branch (settembre 2026) hanno per ora le soluzioni complete anche su `main`; verranno allineate alla prossima ripubblicazione.
 

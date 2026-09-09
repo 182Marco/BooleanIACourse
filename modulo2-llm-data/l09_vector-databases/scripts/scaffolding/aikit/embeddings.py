@@ -1,7 +1,8 @@
 """embeddings.py — da testo a vettore, con backend selezionabile.
 
-Costruito insieme a L19; da L20 vive nel toolkit aikit/ e NON si tocca.
-Il modulo che regge tutto il blocco retrieval (L19-L22):
+Costruito insieme a Modulo 2 · Lezione 7; da stasera vive nel toolkit aikit/
+e NON si tocca. Il modulo che regge tutto il blocco retrieval (Modulo 2 ·
+Lezione 7-10):
 
     from aikit.embeddings import embed, cosine_similarity
 
@@ -11,10 +12,6 @@ Il modulo che regge tutto il blocco retrieval (L19-L22):
 Due backend dietro la stessa firma:
   - "openai"  → API text-embedding-3-small (a pagamento, i testi escono)
   - "local"   → sentence-transformers sulla tua macchina (gratis, offline)
-
-Rispetto al file scritto a L19 manca solo la cache su disco: qui non
-serve, e senza è più corto e più leggibile. Rilanciare la stessa query
-ri-paga l'embedding — parliamo di $0.0000002.
 """
 import time
 
@@ -28,7 +25,7 @@ MODELLO_OPENAI = "text-embedding-3-small"   # 1536 dim — $0.02 / 1M token
 MODELLO_LOCAL = "all-MiniLM-L6-v2"          # 384 dim — ~88 MB, gira in CPU
 
 
-# ------------------------------------------------------------ L19 · cosine
+# ------------------------------------------------------------ Modulo 2 · Lezione 7 · cosine
 def cosine_similarity(a, b):
     """Similarità coseno tra due vettori: cos(θ) = a·b / (|a| |b|).
 
@@ -41,7 +38,7 @@ def cosine_similarity(a, b):
     return float((a @ b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 
-# ---------------------------------------------------- L19 · i due backend
+# ---------------------------------------------------- Modulo 2 · Lezione 7 · i due backend
 def embed_openai(texts):
     """Embedding via API OpenAI. I testi VIAGGIANO verso il servizio."""
     from openai import OpenAI
@@ -70,6 +67,7 @@ def embed_local(texts):
     return np.asarray(_modello_locale.encode(texts), dtype=np.float32)
 
 
+# --------------------------------------------------- Modulo 2 · Lezione 7 · embed() dispatch
 def embed(texts, backend="openai"):
     """Embedda una lista di testi con il backend scelto."""
     if backend == "openai":
@@ -82,6 +80,15 @@ def embed(texts, backend="openai"):
 
 # ------------------------------------------------------------- demo a occhio
 if __name__ == "__main__":
+    # Cosine su vettori noti: paralleli → 1, perpendicolari → 0, opposti → -1.
+    try:
+        print("cosine su vettori noti: "
+              f"{cosine_similarity([1, 0], [1, 0]):.0f} / "
+              f"{cosine_similarity([1, 0], [0, 1]):.0f} / "
+              f"{cosine_similarity([1, 0], [-1, 0]):.0f}")
+    except NotImplementedError as err:
+        print(f"[--] ancora da scrivere — {err}")
+
     frasi = [
         "La scrivania si alza e si abbassa con il doppio motore.",   # A
         "Il piano motorizzato sale e scende in silenzio.",           # B: come A, parole diverse
@@ -90,7 +97,11 @@ if __name__ == "__main__":
     for backend in ("openai", "local"):
         print(f"\nbackend = {backend}")
         inizio = time.perf_counter()
-        vecs = embed(frasi, backend=backend)
-        print(f"  shape {vecs.shape} in {time.perf_counter() - inizio:.2f}s")
-        print(f"  A~B (stesso senso, parole diverse): {cosine_similarity(vecs[0], vecs[1]):.3f}")
-        print(f"  A~C (temi diversi):                 {cosine_similarity(vecs[0], vecs[2]):.3f}")
+        try:
+            vecs = embed(frasi, backend=backend)
+            print(f"  shape {vecs.shape} in {time.perf_counter() - inizio:.2f}s")
+            print(f"  A~B (stesso senso, parole diverse): {cosine_similarity(vecs[0], vecs[1]):.3f}")
+            print(f"  A~C (temi diversi):                 {cosine_similarity(vecs[0], vecs[2]):.3f}")
+        except NotImplementedError as err:
+            print(f"  [--] ancora da scrivere — {err}")
+            break
