@@ -1,6 +1,6 @@
 """benchmark_ann.py — la stessa query: brute-force vs indice (ChromaDB).
 
-Il seguito di benchmark_scala.py di L20: stessi vettori sintetici float32 a
+Il seguito di benchmark_scala.py di Modulo 2 · Lezione 8: stessi vettori sintetici float32 a
 1536 dimensioni, stessa misura (una query, il tempo migliore su più giri) —
 ma stavolta la ricerca la fa anche l'indice HNSW di ChromaDB, in memoria.
 Sono i numeri del "reveal" in slide: il brute-force cresce lineare, l'indice
@@ -26,7 +26,7 @@ LOTTO = 5_000         # gli insert nel DB si fanno a lotti
 
 
 def brute_ms(vectors, q):
-    """ms per UNA query brute-force: la misura di L20, identica."""
+    """ms per UNA query brute-force: la misura di Modulo 2 · Lezione 8, identica."""
     tempi = []
     for _ in range(RIPETIZIONI):
         inizio = time.perf_counter()
@@ -70,5 +70,5 @@ if __name__ == "__main__":
         print(f"{n:>10,} {brute_ms(vectors, q):>10.1f} {chroma_ms(collection, q):>10.1f} "
               f"{costruzione:>13.1f} s")
 
-    print("\nIl brute-force cresce dritto con n (L20); l'indice resta piatto —")
+    print("\nIl brute-force cresce dritto con n (Modulo 2 · Lezione 8); l'indice resta piatto —")
     print("ma si paga UNA volta, alla scrittura. Ogni query da lì in poi è gratis.")

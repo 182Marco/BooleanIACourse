@@ -1,4 +1,4 @@
-"""benchmark_scala.py — il brute-force misurato a scala (il perché di L21).
+"""benchmark_scala.py — il brute-force misurato a scala (il perché di Modulo 2 · Lezione 9).
 
 Genera corpora sintetici di vettori float32 a 1536 dimensioni (come il corpus
 vero) e misura UNA query: lo stesso lavoro di search.py — la cosine con TUTTI
@@ -6,7 +6,7 @@ i vettori + l'ordinamento — scritto in forma vettoriale (numpy fa il ciclo in
 C) per poterlo misurare anche su centinaia di migliaia di vettori. Il tempo
 cresce LINEARMENTE con n: è O(n·d), e ogni query lo ripaga per intero. La
 proiezione a 10 milioni di vettori è il numero da portare in slide: il motivo
-per cui esiste l'indice (ANN, → L21).
+per cui esiste l'indice (ANN, → Modulo 2 · Lezione 9).
 
 Uso (dalla cartella scripts/):
 
@@ -63,4 +63,4 @@ if __name__ == "__main__":
     proiezione = ms * PROIEZIONE_A / n
     print(f"\nproiezione lineare a {PROIEZIONE_A:,} vettori: "
           f"~{proiezione / 1000:.1f} s per UNA query (e ogni query ripaga tutto).")
-    print("Sabato (L21) la stessa ricerca la fa un indice ANN: è il suo mestiere.")
+    print("Modulo 2 · Lezione 9 la stessa ricerca la fa un indice ANN: è il suo mestiere.")

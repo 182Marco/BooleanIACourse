@@ -1,6 +1,6 @@
-"""embeddings.py — da testo a vettore, con backend selezionabile e cache.
+"""embeddings.py — da testo a vettore, con backend selezionabile.
 
-Il modulo che regge tutto il blocco retrieval (L19-L22):
+Il modulo che regge tutto il blocco retrieval (Modulo 2 · Lezione 7-10):
 
     from embeddings import embed, cosine_similarity
 
@@ -11,106 +11,85 @@ Due backend dietro la stessa firma:
   - "openai"  → API text-embedding-3-small (a pagamento, i testi escono)
   - "local"   → sentence-transformers sulla tua macchina (gratis, offline)
 
-Si scrive DAL VIVO col docente (TODO 1-3). Verifica a ogni salvataggio:
+Si scrive DAL VIVO col docente (TODO 1-3). A fine serata entra nel toolkit,
+e da lì si importa senza riscriverlo:
 
-    python scaffolding/check_lab19.py
+    cp working/embeddings.py scaffolding/aikit/embeddings.py
 """
-import hashlib
 import time
-
-from pathlib import Path
 
 import numpy as np
 from dotenv import load_dotenv
 
 load_dotenv()
 
-CACHE_DIR = Path(__file__).parent / ".cache_embeddings"
-
 # Modelli di default dei due backend (verificati live, luglio 2026).
 MODELLO_OPENAI = "text-embedding-3-small"   # 1536 dim — $0.02 / 1M token
 MODELLO_LOCAL = "all-MiniLM-L6-v2"          # 384 dim — ~88 MB, gira in CPU
 
-PREZZO_PER_MTOK = {"text-embedding-3-small": 0.02, "text-embedding-3-large": 0.13}
-
 
 # ------------------------------------------------------------ TODO 1: cosine
-def cosine_similarity(a, b) -> float:
+def cosine_similarity(a, b):
     """Similarità coseno tra due vettori: cos(θ) = a·b / (|a| |b|).
 
     Vale 1.0 per vettori paralleli (stesso significato), ~0 per vettori
     ortogonali (nessuna relazione), -1.0 per vettori opposti. Conta l'ANGOLO,
     non la lunghezza: per questo non serve normalizzare prima.
 
-    TODO 1: implementala con numpy — prodotto scalare diviso il prodotto
-    delle norme (np.linalg.norm). Converti gli input con np.asarray e
-    restituisci un float Python, non un np.float64.
+    TODO 1: la formula qui sopra, in numpy. Restituisce un float.
     """
-    raise NotImplementedError("TODO 1: cosine = a·b / (|a| |b|)")
+    raise NotImplementedError("TODO 1: cosine_similarity")
 
 
 # ---------------------------------------------------- TODO 2: i due backend
-def embed_openai(texts: list[str]) -> np.ndarray:
+def embed_openai(texts):
     """Embedding via API OpenAI. I testi VIAGGIANO verso il servizio.
 
-    TODO 2a: importa il client DENTRO la funzione (from openai import OpenAI)
-    e chiama OpenAI().embeddings.create(model=MODELLO_OPENAI, input=texts).
-    Stampa token e costo in questo formato (è la riga citata in slide):
-        print(f"  [openai] {len(texts)} testi, {token} token → ${costo:.6f}")
-    con token = risposta.usage.total_tokens e costo = token / 1_000_000 *
-    PREZZO_PER_MTOK[MODELLO_OPENAI]. Restituisci np.array dei vettori,
-    dtype float32.
+    TODO 2a: chiama l'endpoint embeddings — OpenAI().embeddings.create(...) —
+    con MODELLO_OPENAI, stampa token usati e costo (il campo usage della
+    risposta; $0.02 / 1M token) e restituisci i vettori come array numpy
+    float32.
     """
-    raise NotImplementedError("TODO 2a: chiamata → costo → vettori")
+    raise NotImplementedError("TODO 2a: embed_openai")
 
 
 _modello_locale = None   # caricato una volta sola: l'import e il load costano
 
 
-def embed_local(texts: list[str]) -> np.ndarray:
+def embed_local(texts):
     """Embedding con sentence-transformers, sulla TUA macchina.
 
     Il primo uso scarica il modello (~88 MB) nella cache di Hugging Face;
     da lì in poi è tutto offline e gratis.
 
-    TODO 2b: importa DENTRO la funzione (from sentence_transformers import
-    SentenceTransformer), carica SentenceTransformer(MODELLO_LOCAL) una
-    volta sola (usa la variabile globale _modello_locale) e restituisci
-    _modello_locale.encode(texts) come array float32.
+    TODO 2b: carica SentenceTransformer(MODELLO_LOCAL) una volta sola
+    (la variabile _modello_locale è lì per questo) e restituisci
+    encode(texts) come array float32.
     """
-    raise NotImplementedError("TODO 2b: SentenceTransformer + encode")
+    raise NotImplementedError("TODO 2b: embed_local")
 
 
-# Il registro dei backend: aggiungerne uno = una riga (es. "cohere").
-EMBEDDERS = {"openai": embed_openai, "local": embed_local}
-MODELLI = {"openai": MODELLO_OPENAI, "local": MODELLO_LOCAL}
+# --------------------------------------------------- TODO 3: embed() dispatch
+def embed(texts, backend="openai"):
+    """Embedda una lista di testi con il backend scelto.
 
-
-# ------------------------------------------- TODO 3: embed() con cache disco
-def _chiave_cache(backend: str, testo: str) -> Path:
-    """Un file per (backend, modello, testo): se uno cambia, cache diversa."""
-    impronta = hashlib.sha1(
-        f"{backend}|{MODELLI.get(backend, '?')}|{testo}".encode("utf-8")
-    ).hexdigest()
-    return CACHE_DIR / f"{impronta}.npy"
-
-
-def embed(texts: list[str], backend: str = "openai") -> np.ndarray:
-    """Embedda una lista di testi. Ricalcola SOLO ciò che non è in cache.
-
-    TODO 3:
-    1. backend sconosciuto → raise ValueError (PRIMA di qualunque chiamata);
-    2. per ogni testo: se _chiave_cache(backend, testo) esiste, np.load;
-       altrimenti segnati (indice, testo) tra i mancanti;
-    3. embedda i soli mancanti con EMBEDDERS[backend], salva ogni vettore
-       con np.save nella sua chiave di cache;
-    4. restituisci np.stack di tutti i vettori nell'ordine di partenza.
+    TODO 3: "openai" → embed_openai, "local" → embed_local, qualunque
+    altro valore → ValueError. Basta un if.
     """
-    raise NotImplementedError("TODO 3: registro + cache + stack")
+    raise NotImplementedError("TODO 3: embed")
 
 
 # ------------------------------------------------------------- demo a occhio
 if __name__ == "__main__":
+    # TODO 1 su vettori noti: paralleli → 1, perpendicolari → 0, opposti → -1.
+    try:
+        print("cosine su vettori noti: "
+              f"{cosine_similarity([1, 0], [1, 0]):.0f} / "
+              f"{cosine_similarity([1, 0], [0, 1]):.0f} / "
+              f"{cosine_similarity([1, 0], [-1, 0]):.0f}")
+    except NotImplementedError as err:
+        print(f"[--] ancora da scrivere — {err}")
+
     frasi = [
         "La scrivania si alza e si abbassa con il doppio motore.",   # A
         "Il piano motorizzato sale e scende in silenzio.",           # B: come A, parole diverse
@@ -119,7 +98,11 @@ if __name__ == "__main__":
     for backend in ("openai", "local"):
         print(f"\nbackend = {backend}")
         inizio = time.perf_counter()
-        vecs = embed(frasi, backend=backend)
-        print(f"  shape {vecs.shape} in {time.perf_counter() - inizio:.2f}s")
-        print(f"  A~B (stesso senso, parole diverse): {cosine_similarity(vecs[0], vecs[1]):.3f}")
-        print(f"  A~C (temi diversi):                 {cosine_similarity(vecs[0], vecs[2]):.3f}")
+        try:
+            vecs = embed(frasi, backend=backend)
+            print(f"  shape {vecs.shape} in {time.perf_counter() - inizio:.2f}s")
+            print(f"  A~B (stesso senso, parole diverse): {cosine_similarity(vecs[0], vecs[1]):.3f}")
+            print(f"  A~C (temi diversi):                 {cosine_similarity(vecs[0], vecs[2]):.3f}")
+        except NotImplementedError as err:
+            print(f"  [--] ancora da scrivere — {err}")
+            break
