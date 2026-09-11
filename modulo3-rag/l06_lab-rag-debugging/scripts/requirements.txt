@@ -1,0 +1,13 @@
+# Modulo 3 · Lezione 6 — Lab RAG: debugging del retrieval
+# Le stesse di Modulo 3 · Lezione 5: nessuna libreria nuova, oggi si tara.
+python-dotenv
+openai
+pydantic
+numpy
+chromadb
+rank-bm25
+cohere
+pypdf
+python-docx
+beautifulsoup4
+markdown-it-py

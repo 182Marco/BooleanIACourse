@@ -37,7 +37,7 @@ Le lezioni pubblicate prima dell'introduzione dei due branch (settembre 2026) ha
 | Modulo 3 — RAG | 3 | 4h | Lab: RAG Conversazionale (memoria & sessioni) |
 | Modulo 3 — RAG | 4 | 2h | Advanced Retrieval I: Hybrid Search |
 | Modulo 3 — RAG | 5 | 2h | Advanced Retrieval II: Re-ranking |
-| Modulo 3 — RAG | 6 | 4h | Lab RAG |
+| Modulo 3 — RAG | 6 | 4h | Lab RAG: debugging del retrieval |
 | Modulo 3 — RAG | 7 | 2h | Tool Calling Intro |
 | Modulo 3 — RAG | 8 | 2h | Tool Implementation |
 | Modulo 3 — RAG | 9 | 4h | RAG + Tools |
