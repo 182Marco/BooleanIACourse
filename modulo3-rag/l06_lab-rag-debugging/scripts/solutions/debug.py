@@ -90,7 +90,9 @@ LE_MIE_QUERY = [
 def prepara():
     """Applica le leve che agiscono PRIMA della ricerca: il chunk size
     (la collection giusta, indicizzata se manca), l'indice BM25 su quella
-    collection, quanti candidati chiede l'hybrid, le istruzioni del prompt."""
+    collection, quanti candidati chiede l'hybrid, le istruzioni del
+    prompt. Se la soglia è stata messa con un retrieval che non la regge,
+    lo dice e la toglie."""
     if CONFIG["chunk_size"] != 500:                      # 500 è la collection lumen_m3 del modulo
         rag.CONFIG["collection"] = f"lumen_m3_{CONFIG['chunk_size']}"
         rag.CONFIG["chunk_size"] = CONFIG["chunk_size"]
@@ -100,6 +102,15 @@ def prepara():
     hybrid.CONFIG["candidati"] = CONFIG["candidati"]      # quanti ne chiede a ogni lista prima di fondere
     if CONFIG["istruzioni"] is not None:
         rag.ISTRUZIONI = CONFIG["istruzioni"]
+    # la soglia taglia per pertinenza: ha senso solo dove lo score è una
+    # pertinenza (coseno del semantico, relevance di Cohere), non un rango
+    soglia_ha_senso = CONFIG["retrieval"] == "semantico" or (
+        CONFIG["retrieval"] == "rerank" and CONFIG["backend"] == "cohere")
+    if CONFIG["soglia"] is not None and not soglia_ha_senso:
+        print(f"soglia {CONFIG['soglia']} ignorata: con {CONFIG['retrieval']}"
+              f"{' (' + CONFIG['backend'] + ')' if CONFIG['retrieval'] == 'rerank' else ''}"
+              " lo score è una posizione, non una pertinenza")
+        CONFIG["soglia"] = None
     print(f"collection {rag.CONFIG['collection']}: {n} chunk · retrieval {CONFIG['retrieval']}"
           f"{' (' + CONFIG['backend'] + ')' if CONFIG['retrieval'] == 'rerank' else ''}"
           f" · candidati {CONFIG['candidati']} · soglia {CONFIG['soglia']} · k {CONFIG['k']}")
@@ -127,10 +138,11 @@ def cerca(query):
 def trova_nel_corpus(frase):
     """La domanda 1: gli id dei chunk che contengono la frase (maiuscole e
     minuscole non contano). I chunk sono tutti in hybrid.INDICE["chunks"]
-    (una lista di dict con id, testo, source), riempita da prepara(): il
-    main la chiama per primo, quindi questa funzione si prova dal main
-    (con SOLO), non da sola. Ritorna una lista di id, vuota se la frase
-    non c'è."""
+    (una lista di dict con id, testo, source), riempita da prepara(), che
+    il main chiama per primo: questa funzione si prova dal main, non da
+    sola. Per vederla girare serve la prima riga del TODO 2 — attesi =
+    trova_nel_corpus(frase_attesa) con un print sotto — e una coppia in
+    SOLO. Ritorna una lista di id, vuota se la frase non c'è."""
     trovati = []
     for c in hybrid.INDICE["chunks"]:
         if frase.lower() in c["testo"].lower():
