@@ -56,8 +56,11 @@ posto del giro completo.
 Ritorna gli id dei chunk che contengono la frase (maiuscole e minuscole
 non contano); lista vuota se non c'è. Tutti i chunk sono in
 `hybrid.INDICE["chunks"]`, una lista di dict con `id`, `testo` e
-`source`, riempita da `prepara()`: il main la chiama per primo, quindi
-si prova la funzione dal main (con `SOLO`), non da sola.
+`source`, riempita da `prepara()`, che il main chiama per primo: la
+funzione si prova dal main, non da sola. Per vederla girare ti serve una
+riga del TODO 2: scrivi `attesi = trova_nel_corpus(frase_attesa)` con un
+`print(attesi)` sotto, metti una coppia in `SOLO` e lancia il file. È il
+primo pezzo di `diagnostica()`, e da lì prosegui.
 
 ### TODO 2 — `diagnostica(query, frase_attesa)` · le tre domande
 
@@ -85,6 +88,15 @@ giuste su 13**. Se esce 9/13 o 11/13 non è per forza un errore vostro:
 la generazione oscilla, si rilancia una volta e si guarda quale riga è
 cambiata.
 
+### Se qualcosa non torna
+
+| Cosa vedi | Cosa controllare |
+|---|---|
+| `KeyError: 'chunks'` | `trova_nel_corpus()` è stata chiamata prima di `prepara()`, che riempie l'indice: si chiama dal main, non in cima al file |
+| posizione `None` su tutte le domande | il confronto è sul testo del chunk invece che sul suo `id`, o con la frase invece che con gli id di `trova_nel_corpus()` |
+| «nel top-k: sì» con posizione 7 | manca il confronto con `CONFIG["k"]`: nel prompt entrano solo i primi k candidati, non tutti quelli di `cerca()` |
+| «la usa? no» ma la risposta a occhio è giusta | il modello ha citato in una forma diversa da `[id]`: si legge la risposta e si annota a mano. È il limite del criterio automatico |
+
 ## Lab 2 — caccia ai failure (le query vostre)
 
 Lo strumento c'è: ora si usa. Guarda le tre risposte che mancano sulla
@@ -105,7 +117,13 @@ risposta giusta ma costosa.
 caso, di almeno due casi diversi. Il caso C (la domanda non ha risposta
 e il sistema lo dice) si annota ma non conta tra i sei. Se una domanda
 vostra viene risposta bene, non è un failure: si scarta e se ne scrive
-un'altra.
+un'altra. Il **caso F non si trova qui**: a `k` 4 una risposta giusta è
+giusta e basta. Lo si produce nel Lab 3, alzando `k` e guardando quanto
+costa. Il **caso B conta** come uno dei due casi diversi anche se oggi
+non ha una cura: riconoscerlo è metà del lavoro. Se però in griglia
+finiscono solo casi B senza codice, nel Lab 3 non avresti niente da
+curare: cercane ancora, o parti dalle tre della baseline, che coprono
+tre casi diversi.
 
 ## Lab 3 — cura mirata (nessun TODO: si lavora su CONFIG)
 

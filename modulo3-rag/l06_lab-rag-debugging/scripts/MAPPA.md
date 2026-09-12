@@ -1,7 +1,12 @@
 # Modulo 3 · Lezione 6 — dove sta cosa
 
 I file che servono oggi, in ordine di quando si aprono. Tutto si lancia
-dalla cartella `scripts/`.
+dalla cartella `scripts/`: ci si entra una volta e si resta lì.
+
+```bash
+cd scripts          # se sei già dentro, `ls` mostra CONSEGNA.md e working/
+python working/debug.py
+```
 
 ```
 le slide della lezione (PDF)                      accanto a scripts/
@@ -39,9 +44,9 @@ Sono i moduli scritti nelle lezioni scorse. `debug.py` li importa e oggi
 
 | Modulo | Da dove viene | Cosa usa `debug.py` |
 |---|---|---|
-| `rag.py` | Modulo 3 · Lezione 2-3 | `recupera()` (il retrieval semantico), `genera()` (la risposta con le citazioni), `CONFIG` (collection e chunk size), `ISTRUZIONI` (le regole del prompt), `indicizza()` |
-| `hybrid.py` | Modulo 3 · Lezione 4 | `cerca_hybrid()` (BM25 + semantico fusi con RRF), `costruisci_indice_bm25()`, `INDICE["chunks"]` (tutti i chunk, dove `trova_nel_corpus()` cerca) |
-| `rerank.py` | Modulo 3 · Lezione 5, da oggi in `aikit/` | `cerca_due_stadi()` (recupera tanti candidati e li riordina con Cohere o con l'LLM) |
+| `rag.py` | Modulo 3 · Lezione 2-3 | `recupera(query, k)` (il retrieval semantico), `genera(chunks, domanda)` (la risposta con le citazioni), `CONFIG` (collection e chunk size), `ISTRUZIONI` (le regole del prompt), `indicizza()` |
+| `hybrid.py` | Modulo 3 · Lezione 4 | `cerca_hybrid(query, k)` (BM25 + semantico fusi con RRF), `costruisci_indice_bm25()`, `INDICE["chunks"]` (tutti i chunk, dove `trova_nel_corpus()` cerca) |
+| `rerank.py` | Modulo 3 · Lezione 5, da oggi in `aikit/` | `cerca_due_stadi(query, k_largo, k_finale, backend)` (recupera tanti candidati e li riordina con Cohere o con l'LLM) |
 | `vectorstore.py` | Modulo 2 · Lezione 9 | `apri_collection()`, per sapere se il corpus è già indicizzato |
 
 Sotto ci sono anche gli altri moduli del Modulo 2 (`chunk.py`,

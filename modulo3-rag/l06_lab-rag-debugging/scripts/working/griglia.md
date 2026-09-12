@@ -17,11 +17,18 @@ aggiungono.
 | C | non esiste (frase attesa `None`) e il modello lo dice: non è un failure, si annota e non conta tra i sei |
 | D | non esiste e il modello risponde lo stesso |
 | E | è nel top-k, e la risposta non lo usa |
-| F | tutto giusto, ma con un `k` alto che costa su ogni domanda |
+| F | tutto giusto, ma con un `k` alto che costa su ogni domanda: non si incontra nel Lab 2, si produce nel Lab 3 alzando `k` |
 
-**Le leve**: `k` · `soglia` · `chunk_size` · `retrieval` (`"hybrid"`,
-`"rerank"`) · `istruzioni`. Quale leva per quale caso: in `CONSEGNA.md`;
-dove sta ogni file: in `MAPPA.md`.
+**Quale leva per quale caso** (il dettaglio è in `CONSEGNA.md`; dove sta
+ogni file, in `MAPPA.md`)
+
+| Caso | Leve |
+|---|---|
+| A | `k` più alto · `retrieval` → `"rerank"` · `"hybrid"` (le parole esatte, i codici) |
+| B | `"hybrid"` se nella domanda c'è un codice; altrimenti nessuna leva di oggi |
+| D | `soglia` (solo col semantico o con rerank Cohere) · `istruzioni` |
+| E | `"rerank"` per metterlo primo + `k` basso · `istruzioni` |
+| F | `k` più basso, verificando che resti giusta |
 
 ## Lab 2 — i failure trovati
 
