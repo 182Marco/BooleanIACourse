@@ -23,8 +23,9 @@ nella cartella della lezione (materiale docente).
 
 ## Ruolo di ogni file
 
-Legenda: 🧰 ambiente/toolkit riusabile · 🎤 live coding del docente ·
-⌨️ da completare dagli studenti · 📄 documenti/dati di esempio.
+Legenda: 🧰 ambiente/toolkit riusabile · ⌨️ da completare dagli studenti
+· 📄 documenti/dati di esempio. (Oggi non c'è live coding del docente:
+tutti e tre i blocchi pratici sono ⌨️.)
 
 | File | Ruolo | Cosa fa |
 |---|---|---|
@@ -74,6 +75,11 @@ più, con `retrieval = "rerank"`, 13 chiamate al reranker: con `"llm"`
 altre 13 al modello, con `"cohere"` 13 chiamate Cohere e 6 secondi di
 pausa tra una domanda e l'altra (il free tier fa 10 chiamate al minuto:
 il giro dura circa un minuto e mezzo).
+
+> **Se vuoi mostrare la prima indicizzazione (docente):** sulla tua copia
+> `chroma/` esiste già, quindi il primo avvio parte subito e non si vede
+> la collection nascere. Per farla vedere dal vivo, cancella `chroma/`
+> prima della lezione: si ricostruisce in un paio di minuti.
 
 > **Prima dell'aula (docente):** i numeri in `failure-docente.md` e nelle
 > slide sono misurati il 10/09/2026 con `misura_failure.py` (cartella della
