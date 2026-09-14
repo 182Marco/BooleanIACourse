@@ -1,7 +1,7 @@
 """embeddings.py — da testo a vettore, con backend selezionabile.
 
-Costruito insieme a L19; da L20 vive nel toolkit aikit/ e NON si tocca.
-Il modulo che regge tutto il blocco retrieval (L19-L22):
+Costruito insieme a Modulo 2 · Lezione 7; da Modulo 2 · Lezione 8 vive nel toolkit aikit/ e NON si tocca.
+Il modulo che regge tutto il blocco retrieval (Modulo 2 · Lezione 7-10):
 
     from aikit.embeddings import embed, cosine_similarity
 
@@ -12,7 +12,7 @@ Due backend dietro la stessa firma:
   - "openai"  → API text-embedding-3-small (a pagamento, i testi escono)
   - "local"   → sentence-transformers sulla tua macchina (gratis, offline)
 
-Rispetto al file scritto a L19 manca solo la cache su disco: qui non
+Rispetto al file scritto a Modulo 2 · Lezione 7 manca solo la cache su disco: qui non
 serve, e senza è più corto e più leggibile. Rilanciare la stessa query
 ri-paga l'embedding — parliamo di $0.0000002.
 """
@@ -28,7 +28,7 @@ MODELLO_OPENAI = "text-embedding-3-small"   # 1536 dim — $0.02 / 1M token
 MODELLO_LOCAL = "all-MiniLM-L6-v2"          # 384 dim — ~88 MB, gira in CPU
 
 
-# ------------------------------------------------------------ L19 · cosine
+# ------------------------------------------------------------ Modulo 2 · Lezione 7 · cosine
 def cosine_similarity(a, b):
     """Similarità coseno tra due vettori: cos(θ) = a·b / (|a| |b|).
 
@@ -41,7 +41,7 @@ def cosine_similarity(a, b):
     return float((a @ b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 
-# ---------------------------------------------------- L19 · i due backend
+# ---------------------------------------------------- Modulo 2 · Lezione 7 · i due backend
 def embed_openai(texts):
     """Embedding via API OpenAI. I testi VIAGGIANO verso il servizio."""
     from openai import OpenAI

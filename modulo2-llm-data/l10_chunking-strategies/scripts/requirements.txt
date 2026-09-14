@@ -1,4 +1,4 @@
-# L22 — Chunking Strategies
+# Modulo 2 · Lezione 10 — Chunking Strategies
 python-dotenv
 numpy
 openai
