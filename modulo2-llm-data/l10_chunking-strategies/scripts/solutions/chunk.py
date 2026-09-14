@@ -13,16 +13,20 @@ from pathlib import Path
 SCRIPTS = Path(__file__).parent.parent
 sys.path.insert(0, str(SCRIPTS / "scaffolding"))
 
-from aikit.embeddings import embed, cosine_similarity   # noqa: E402 — L19
-from aikit import vectorstore                           # noqa: E402 — L21
+from aikit.embeddings import embed, cosine_similarity   # noqa: E402 — Modulo 2 · Lezione 7
+from aikit import vectorstore                           # noqa: E402 — Modulo 2 · Lezione 9
 
 DATASET = SCRIPTS / "dataset"
 
 # Le manopole degli esperimenti: si cambia UNA manopola, si rilancia,
 # si annota l'esito nella tabella in fondo al file.
 STRATEGIA = "fixed"          # "fixed" | "recursive" | "semantic"
-CHUNK_SIZE = 500             # caratteri (fixed e recursive)
-OVERLAP = 0                  # caratteri ripetuti tra chunk vicini (solo fixed)
+CHUNK_SIZE = 500             # caratteri (fixed e recursive), sempre positivo
+OVERLAP = 0                  # caratteri ripetuti tra chunk vicini (solo fixed).
+                             # Tenetelo MINORE di CHUNK_SIZE: se il taglio non
+                             # avanza (overlap uguale o maggiore del size, o un
+                             # size a zero) i chunk non finiscono mai e lo
+                             # script si pianta lì.
 SOGLIA = 0.4                 # sotto questa similarità si taglia (solo semantic)
 
 
@@ -42,18 +46,29 @@ def chunk_fixed(testo, size, overlap):
 def chunk_recursive(testo, size):
     """Taglia sull'ULTIMO separatore che ci sta in `size` caratteri, provando
     i separatori dal più forte al più debole (paragrafo, riga, frase); se
-    nessuno ci sta, taglio secco a `size`. Poi riparte sul resto (per questo
-    si chiama ricorsivo). Restituisce pezzi lunghi al massimo `size`."""
-    if len(testo) <= size:
-        return [testo]
-    finestra = testo[:size]
-    for separatore in ("\n\n", "\n", ". "):
-        posizione = finestra.rfind(separatore)
+    nessuno ci sta, taglio secco a `size`. Poi riparte da dove ha tagliato,
+    fino in fondo. Restituisce pezzi lunghi al massimo `size`."""
+    pezzi = []
+    inizio = 0
+    while inizio < len(testo):
+        resto = testo[inizio:]
+        if len(resto) <= size:          # l'ultimo pezzo ci sta tutto
+            pezzi.append(resto)
+            break
+        finestra = resto[:size]
+        posizione, lunghezza = -1, 0    # il primo separatore che ci sta vince
+        for separatore in ("\n\n", "\n", ". "):
+            posizione = finestra.rfind(separatore)
+            if posizione > 0:
+                lunghezza = len(separatore)
+                break
         if posizione > 0:
-            pezzo = testo[:posizione]
-            resto = testo[posizione + len(separatore):]
-            return [pezzo] + chunk_recursive(resto, size)
-    return [finestra] + chunk_recursive(testo[size:], size)
+            pezzi.append(resto[:posizione])
+            inizio = inizio + posizione + lunghezza
+        else:
+            pezzi.append(finestra)      # nessun separatore: taglio secco
+            inizio = inizio + size
+    return pezzi
 
 
 # ------------------------- già scritta: la mostra il DOCENTE in demo 🎤 —
@@ -100,9 +115,19 @@ def mostra_chunk(pezzi):
 
 
 if __name__ == "__main__":
-    QUERY_SALDI = "Quanti giorni ho per restituire un prodotto comprato durante i saldi?"
-    QUERY_CONTRIBUTO = "Quanto vale il contributo per la postazione e entro quanti giorni va presentata la richiesta?"
-    QUERY_E07 = "La centralina mostra il codice E07: cosa devo fare?"
+    # Le tre query note della serata, ognuna con la RISPOSTA che deve uscire:
+    # così giudicate il primo risultato senza rileggervi i documenti interi.
+    QUERY = [
+        # colonna "saldi" della tabella in fondo al file
+        ("Quanti giorni ho per restituire un prodotto comprato durante i saldi?",
+         "14 giorni, e il rimborso è solo un buono acquisto"),
+        # colonna "contributo"
+        ("Quanto vale il contributo per la postazione e entro quanti giorni va presentata la richiesta?",
+         "250 euro, e la richiesta va presentata entro 60 giorni dall'attivazione"),
+        # colonna "E07"
+        ("La centralina mostra il codice E07: cosa devo fare?",
+         "staccare l'alimentazione per 30 secondi, poi ricalibrare col tasto -"),
+    ]
     K = 3
 
     print(f"config: {STRATEGIA} · size {CHUNK_SIZE} · overlap {OVERLAP} · soglia {SOGLIA}\n")
@@ -110,21 +135,30 @@ if __name__ == "__main__":
     # 1 · si spezza: ogni documento con la strategia scelta
     documenti = carica_documenti()
     pezzi_per_doc = {}
-    for nome, testo in documenti.items():
-        if STRATEGIA == "fixed":
-            pezzi = chunk_fixed(testo, CHUNK_SIZE, OVERLAP)
-        elif STRATEGIA == "recursive":
-            pezzi = chunk_recursive(testo, CHUNK_SIZE)
-        elif STRATEGIA == "semantic":
-            pezzi = chunk_semantic(testo, SOGLIA)
-        else:
-            raise ValueError(f"STRATEGIA {STRATEGIA!r} sconosciuta")
-        pezzi_per_doc[nome] = pezzi
-        taglie = [len(p) for p in pezzi]
-        print(f"{nome}: {len(pezzi)} chunk · da {min(taglie)} a {max(taglie)} caratteri")
+    try:
+        for nome, testo in documenti.items():
+            if STRATEGIA == "fixed":
+                pezzi = chunk_fixed(testo, CHUNK_SIZE, OVERLAP)
+            elif STRATEGIA == "recursive":
+                pezzi = chunk_recursive(testo, CHUNK_SIZE)
+            elif STRATEGIA == "semantic":
+                pezzi = chunk_semantic(testo, SOGLIA)
+            else:
+                raise ValueError(f"STRATEGIA {STRATEGIA!r} sconosciuta")
+            pezzi_per_doc[nome] = pezzi
+            taglie = [len(p) for p in pezzi]
+            print(f"{nome}: {len(pezzi)} chunk · da {min(taglie)} a {max(taglie)} caratteri")
+    except NotImplementedError as err:
+        print(f"[--] ancora da scrivere — {err}")
+        raise SystemExit(0)
 
-    print("\ni tagli da vicino (policy-resi-garanzia):")
-    mostra_chunk(pezzi_per_doc["policy-resi-garanzia"])
+    # I tagli da vicino sui due documenti che nascondono le risposte più
+    # difficili: dove finisce un chunk e dove ricomincia il successivo. Il
+    # manuale non si stampa qui — è chunkato e indicizzato come gli altri,
+    # ma i suoi tagli si giudicano dal risultato della terza query.
+    for nome in ("policy-resi-garanzia", "guida-smart-working"):
+        print(f"\ni tagli da vicino ({nome}):")
+        mostra_chunk(pezzi_per_doc[nome])
 
     # 2 · si indicizza: embed dei chunk + collection RICREATA da zero
     ids, testi, metadati = [], [], []
@@ -139,10 +173,12 @@ if __name__ == "__main__":
     collection = vectorstore.crea_collection("lumen_chunks")
     vectorstore.indicizza(collection, ids, testi, vettori, metadati)
 
-    # 3 · le query note: il primo risultato si legge PER INTERO —
-    #     la risposta c'è tutta? è tagliata? è sepolta nel rumore?
-    for query in (QUERY_SALDI, QUERY_CONTRIBUTO, QUERY_E07):
+    # 3 · le query note: il primo risultato si legge PER INTERO e si confronta
+    #     con la risposta attesa — c'è tutta (OK)? si interrompe a metà (META)?
+    #     o il chunk parla d'altro (FUORI)?
+    for query, attesa in QUERY:
         print(f"\n=== {query}")
+        print(f"    risposta attesa: {attesa}")
         risultati = vectorstore.search(collection, query, K)
         primo = risultati[0]
         print(f"  1° · score {primo['score']:.3f} · [{primo['id']}]")
@@ -157,7 +193,10 @@ if __name__ == "__main__":
 # TABELLA ESPERIMENTI — una riga per giro: annotate PRIMA di cambiare
 # manopola, così la storia dei tentativi resta leggibile.
 #
-# Esito per query:  ✔ risposta in testa e integra · ✂ tagliata · ∿ sepolta
+# Esito per query, guardando il 1° risultato:
+#   OK     contiene la risposta, tutta
+#   META   la contiene a metà: si interrompe a metà frase
+#   FUORI  non è la risposta: parla d'altro, o me la fa cercare io
 #
 # | STRATEGIA | SIZE  | OVERLAP/SOGLIA | chunk | saldi | contributo | E07 |
 # |-----------|-------|----------------|-------|-------|------------|-----|
@@ -167,6 +206,12 @@ if __name__ == "__main__":
 # |           |       |                |       |       |            |     |
 # |           |       |                |       |       |            |     |
 # |           |       |                |       |       |            |     |
+# |           |       |                |       |       |            |     |
+# |           |       |                |       |       |            |     |
 #
 # Quale configurazione porta a casa TUTTE e tre le query? Ce n'è una sola?
+#
+# Prima di chiudere: rimettete la configurazione che avete scelto e
+# rilanciate un'ultima volta — la collection che resta su disco è quella
+# dell'ULTIMO lancio, ed è da lì che riparte la prossima lezione.
 # ---------------------------------------------------------------------------

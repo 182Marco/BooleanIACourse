@@ -1,7 +1,7 @@
-"""search.py — la ricerca brute-force di L20, da oggi nel toolkit aikit/.
+"""search.py — la ricerca brute-force di Modulo 2 · Lezione 8, da oggi nel toolkit aikit/.
 
-È il modulo che avete scritto giovedì (top-k + MMR), promosso nel
-toolkit aikit/ — lo stesso percorso che embeddings.py ha fatto a L20.
+È il modulo costruito a Modulo 2 · Lezione 8 (top-k + MMR), promosso nel
+toolkit aikit/ — lo stesso percorso che embeddings.py ha fatto a Modulo 2 · Lezione 8.
 NON si tocca, si importa. Stamattina serve da
 termine di confronto: la stessa ricerca la fa il vector DB, e i documenti
 in testa devono essere gli stessi.
@@ -21,7 +21,7 @@ DATASET = Path(__file__).parent.parent.parent / "dataset"
 
 
 def carica_corpus():
-    """Riapre il corpus di L19: restituisce (docs, vectors, backend)."""
+    """Riapre il corpus di Modulo 2 · Lezione 7: restituisce (docs, vectors, backend)."""
     vectors = np.load(DATASET / "corpus_embeddings.npz")["vectors"]
     meta = json.loads((DATASET / "corpus_meta.json").read_text(encoding="utf-8"))
 
@@ -41,8 +41,9 @@ def search(query, k):
     docs, vectors, backend = carica_corpus()
     q = embed([query], backend=backend)[0]        # lo STESSO spazio del corpus
     scores = [cosine_similarity(q, v) for v in vectors]
-    migliori = np.argsort(scores)[::-1][:k]
-    return [{**docs[i], "score": scores[i]} for i in migliori]
+    risultati = [{**docs[i], "score": scores[i]} for i in range(len(docs))]
+    risultati.sort(key=lambda r: r["score"], reverse=True)
+    return risultati[:k]
 
 
 def search_mmr(query, k, lambda_):
