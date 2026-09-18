@@ -1,0 +1,13 @@
+# Modulo 3 · Lezione 9 — Lab: RAG + Tools
+# Le stesse di Modulo 3 · Lezione 6: nessuna libreria nuova (il tool calling usa openai e pydantic, già qui).
+python-dotenv
+openai
+pydantic
+numpy
+chromadb
+rank-bm25
+cohere
+pypdf
+python-docx
+beautifulsoup4
+markdown-it-py
