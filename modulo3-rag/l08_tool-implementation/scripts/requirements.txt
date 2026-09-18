@@ -1,0 +1,5 @@
+# Modulo 3 · Lezione 8 — Tool Implementation
+# Come Modulo 3 · Lezione 7: sqlite3 è nella libreria standard, nessuna libreria nuova.
+python-dotenv
+openai
+pydantic
