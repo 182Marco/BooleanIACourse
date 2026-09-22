@@ -1,0 +1,21 @@
+CHANGELOG DEI RILASCI
+Lumen S.r.l. — Prodotto e Firmware
+Aggiornato a settembre 2026 — storia dei rilasci di firmware, app e portale
+
+FIRMWARE CENTRALINA LUMADESK
+
+La versione 2.2.0, distribuita con i primi lotti della LD-210, ha introdotto le quattro memorie di posizione e la modalità di risparmio energetico del display; nei mesi successivi è emerso un difetto nella scrittura delle memorie, che in alcune unità si perdevano allo scollegamento dalla rete elettrica, e la versione è rimasta consigliata solo per le unità non ancora aggiornabili da remoto. La 2.3.0 ha corretto il difetto delle memorie, ha aggiunto il modulo di abbinamento con l'app LumaSync e ha portato la velocità massima di regolazione da 32 a 38 millimetri al secondo; da questa versione l'aggiornamento si scarica direttamente dall'app senza cavo di servizio.
+
+La versione 2.4.0 ha introdotto tre livelli di sensibilità dell'anticollisione selezionabili dalla centralina; sulle installazioni con pavimenti irregolari il livello più alto generava arresti non necessari. Li corregge la 2.4.1, versione corrente consigliata per tutte le scrivanie a doppio motore, che sistema anche la memoria di calibrazione dopo un'interruzione di corrente e riduce il consumo in standby. L'aggiornamento dalla 2.4.0 richiede circa quattro minuti, si scarica dall'app LumaSync, non cancella le memorie di posizione né i livelli dell'anticollisione impostati, ed estende il registro diagnostico letto dall'assistenza durante gli interventi in garanzia.
+
+APP LUMASYNC
+
+La 1.6 è stata la prima versione pubblica dell'app: abbinamento con la centralina, regolazione dal telefono e promemoria per alternare seduta e posizione in piedi. La 1.7 ha aggiunto le statistiche settimanali di utilizzo e la sincronizzazione dei profili su più scrivanie, utile a chi lavora tra casa e ufficio; richiede il firmware 2.3.0 o successivo, sulle versioni precedenti l'app funziona in sola lettura. La 1.8.2, versione corrente, introduce l'esportazione delle statistiche, il supporto ai temi di sistema e la notifica di nuovo firmware disponibile; le versioni 1.8.0 e 1.8.1 sono state ritirate entro pochi giorni per un difetto nelle notifiche e non risultano più installabili.
+
+PORTALE CLIENTI E AREA PERSONALE
+
+Il rilascio di marzo del portale ha unificato ordini e pratiche di reso nella stessa area personale: da lì si apre un RMA, si segue il tracking e si scarica la fattura. Il rilascio di giugno ha aggiunto la registrazione dell'estensione di garanzia con verifica automatica della finestra di attivazione e la prenotazione degli appuntamenti per il montaggio a domicilio con scelta della fascia oraria. Il rilascio di settembre, l'ultimo, ha introdotto lo storico dei firmware installati per ciascuna scrivania registrata: il numero di serie collega la scrivania alla versione firmware e l'assistenza vede il registro diagnostico senza chiederlo al cliente.
+
+NOTE DI COMPATIBILITÀ
+
+Le scrivanie LD-200 e LD-210 condividono la stessa centralina e ricevono gli stessi firmware; la LD-210W usa il medesimo telaio della LD-210 e nessun firmware dedicato. Il piano fisso LD-115 non ha centralina e non è interessato dai rilasci. Gli accessori non hanno firmware, con l'eccezione storica del prototipo di hub ricarica mai arrivato a listino. Per ogni dubbio sulla versione minima richiesta da una funzione dell'app fa fede la tabella pubblicata nell'area personale, aggiornata a ogni rilascio.

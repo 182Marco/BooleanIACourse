@@ -1,0 +1,14 @@
+# Modulo 3 · Lezione 10 — OpenAI Agents SDK: il loop gestito
+# Le stesse di Modulo 3 · Lezione 9, più openai-agents (l'SDK, a versione fissata).
+python-dotenv
+openai
+openai-agents==0.22.3
+pydantic
+numpy
+chromadb
+rank-bm25
+cohere
+pypdf
+python-docx
+beautifulsoup4
+markdown-it-py
