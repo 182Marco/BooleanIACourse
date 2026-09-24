@@ -1,0 +1,35 @@
+KNOWLEDGE BASE — TICKET DI SUPPORTO
+Lumen S.r.l. — Servizio Clienti
+Estratto settembre 2026 — uso interno, casi anonimizzati
+
+COME SI LEGGE UN TICKET
+
+Ogni scheda riporta il codice del ticket, il prodotto, il sintomo segnalato dal cliente e la risoluzione registrata dall'operatore. Le schede sono sintetiche e usano il gergo interno del supporto: DOA per prodotto guasto alla consegna, corsa per l'escursione del piano, ciclo di reset per la procedura di calibrazione del manuale.
+
+TCK-1042 · LD-200 · il piano si ferma a metà corsa — Sintomo: salendo, la scrivania si blocca sempre attorno ai 90 cm e torna indietro di qualche centimetro. Diagnosi: anticollisione attivata da un ostacolo reale, la cassettiera LMX-2300 sporgeva sotto il piano. Risoluzione: spostata la cassettiera, corsa completa ritrovata. Nessun intervento tecnico.
+
+TCK-1103 · LD-210 · il piano si ferma a metà corsa — Sintomo: blocco a circa metà altezza, poi il display mostra E01. Diagnosi: cavo del motore sinistro allentato dopo un trasloco. Risoluzione: ricollegato il cavo come da sezione codici di errore del manuale, poi ciclo di reset. Chiuso al primo contatto.
+
+TCK-1156 · LD-200 · il piano si ferma a metà corsa — Sintomo: il piano si arresta sempre alla stessa altezza senza codici di errore né ostacoli, su entrambe le direzioni di marcia. Diagnosi: memoria di calibrazione corrotta, caso tipico dopo un'interruzione di corrente durante il movimento. Risoluzione: ciclo di reset completo (tasto meno fino a RST), poi aggiornamento del firmware della centralina alla 2.4.1, che corregge la gestione delle interruzioni. È il caso da controllare per primo quando il blocco è sistematico alla stessa quota e senza codici.
+
+TCK-1201 · LD-210 · il piano si ferma a metà corsa — Sintomo: arresti irregolari durante la salita, a quote sempre diverse, a volte con un ronzio. Diagnosi: alimentatore non originale da 4A al posto di quello in dotazione. Risoluzione: ripristinato l'alimentatore originale, movimenti regolari. Suggerito al cliente di non usare alimentatori di terze parti.
+
+TCK-1240 · LD-200 · il piano si ferma a metà corsa — Sintomo: la scrivania si ferma a metà e il display lampeggia, capita solo nelle ore serali. Diagnosi: multipresa sovraccarica condivisa con una stufetta. Risoluzione: collegata la scrivania a una presa dedicata come da manuale, problema sparito. Nessun difetto del prodotto.
+
+TCK-1077 · LC-150 · seduta che scende da sola — Sintomo: il pistone perde altezza durante l'uso. Diagnosi: DOA del pistone. Risoluzione: aperto RMA-2 con foto, pistone sostituito in garanzia. Il cliente con statura sopra 190 cm è stato indirizzato alla LC-150P.
+
+TCK-1118 · LMX-4400 · il braccio non tiene il monitor — Sintomo: il monitor cala lentamente verso il piano. Diagnosi: molla a gas tarata per un peso maggiore, monitor da 1,8 kg sotto la portata minima di 2 kg. Risoluzione: regolata la vite di tensione al minimo e aggiunta la piastra di zavorra; in alternativa il codice corretto per monitor leggeri è indicato a catalogo.
+
+TCK-1152 · LD-115 · morsetto del braccio che non chiude — Sintomo: il morsetto del braccio porta monitor non si stringe sul piano. Diagnosi: il LD-115 non è compatibile con il morsetto del LMX-4400, spessore del piano insufficiente, come da listino. Risoluzione: reso RMA-1 del braccio e proposta della base da appoggio di terze parti. Caso ricorrente: verificare sempre la compatibilità prima della vendita.
+
+TCK-1170 · LD-210 · display spento dopo un temporale — Sintomo: centralina completamente spenta. Diagnosi: fusibile interno bruciato da sovratensione. Risoluzione: intervento in garanzia con sostituzione della centralina; il danno da fulmine sarebbe fuori garanzia, ma il cliente aveva documentato l'uso di una ciabatta con protezione. Valutazione caso per caso.
+
+TCK-1193 · LD-200 · memorie che non si salvano — Sintomo: le posizioni M1–M4 si perdono a ogni scollegamento. Diagnosi: firmware 2.2.0 con il difetto noto di scrittura delle memorie. Risoluzione: aggiornamento del firmware come da changelog, memorie stabili dopo il ciclo di reset.
+
+TCK-1215 · LD-210W · piano wide che vibra — Sintomo: vibrazione del piano alla massima altezza con doppio monitor montato. Diagnosi: serraggio del telaio da completare dopo l'assestamento, caso da manuale. Risoluzione: ricontrollato il serraggio di tutte le viti, vibrazione rientrata. Suggerito il controllo periodico previsto dalla manutenzione.
+
+TCK-1228 · SRV-01 · appuntamento di montaggio saltato — Sintomo: tecnico non presentato nella fascia concordata. Diagnosi: errore di pianificazione interno. Risoluzione: rimborsato SRV-01 per intero e riprogrammato il montaggio in priorità con un buono di cortesia. Il cliente ha mantenuto l'ordine.
+
+TCK-1262 · LD-200 · rumore secco in discesa — Sintomo: uno schiocco metallico a inizio discesa, corsa regolare per il resto. Diagnosi: gioco dei distanziali su pavimento in resina, non un difetto dei motori. Risoluzione: installato il kit LMX-6100, rumore sparito. Nessun ricambio necessario.
+
+TCK-1289 · LumaSync · app che non vede la scrivania — Sintomo: l'app non trova la LD-210 in fase di abbinamento. Diagnosi: firmware della centralina precedente alla 2.3.0, privo del modulo di abbinamento. Risoluzione: aggiornato il firmware, abbinamento riuscito al primo tentativo. Vedi il changelog dei rilasci per i requisiti minimi.

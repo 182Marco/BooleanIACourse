@@ -42,7 +42,7 @@ Le lezioni pubblicate prima dell'introduzione dei due branch (settembre 2026) ha
 | Modulo 3 — RAG | 8 | 2h | Tool Implementation |
 | Modulo 3 — RAG | 9 | 4h | RAG + Tools |
 | Modulo 3 — RAG | 10 | 2h | OpenAI Agents SDK: il loop gestito |
-| Modulo 3 — RAG | 11 | 2h | RAGAS & Trulens |
+| Modulo 3 — RAG | 11 | 2h | Agents SDK: sessioni e conversazione |
 | Modulo 3 — RAG | 12 | 4h | Lab Evaluation |
 | Modulo 3 — RAG | 13 | 2h | RAG Avanzato |
 | Modulo 3 — RAG | 14 | 2h | Production RAG |
