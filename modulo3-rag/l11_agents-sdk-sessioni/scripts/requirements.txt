@@ -1,0 +1,14 @@
+# Modulo 3 · Lezione 11 — Agents SDK: sessioni e conversazione
+# Le stesse di Modulo 3 · Lezione 10: la sessione (SQLiteSession) è già dentro openai-agents.
+python-dotenv
+openai
+openai-agents==0.22.3
+pydantic
+numpy
+chromadb
+rank-bm25
+cohere
+pypdf
+python-docx
+beautifulsoup4
+markdown-it-py
