@@ -45,7 +45,7 @@ Le lezioni pubblicate prima dell'introduzione dei due branch (settembre 2026) ha
 | Modulo 3 — RAG | 11 | 2h | Agents SDK: sessioni e conversazione |
 | Modulo 3 — RAG | 12 | 4h | Lab Evaluation |
 | Modulo 3 — RAG | 13 | 2h | RAG Avanzato |
-| Modulo 3 — RAG | 14 | 2h | Production RAG |
+| Modulo 3 — RAG | 14 | 2h | Lavoro sul progetto personale |
 | Modulo 3 — RAG | 15 | 4h | Progetto Modulo 3 |
 | Modulo 4 — Agenti | 1 | 2h | Agenti: Teoria |
 | Modulo 4 — Agenti | 2 | 2h | Agent vs Chain |
