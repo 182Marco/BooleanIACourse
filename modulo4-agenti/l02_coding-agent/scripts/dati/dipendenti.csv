@@ -1,0 +1,121 @@
+id,nome,cognome,sede,reparto,ruolo,data_assunzione,contratto
+1,Roberto,Mariani,Brescia,Produzione,Operaio specializzato,2009-08-24,part-time
+2,Simona,Ferrari,Brescia,Produzione,Manutentrice,2015-05-11,full-time
+3,Elisa,Pagani,Padova,Commerciale,Account manager,2013-01-14,full-time
+4,Lucia,Pasini,Padova,Produzione,Operatrice di linea,2010-10-11,full-time
+5,Elena,Moretti,Brescia,Commerciale,Account manager,2015-02-02,full-time
+6,Elisa,Zampieri,Padova,Produzione,Operatrice di linea,2013-04-15,part-time
+7,Enrico,Marino,Brescia,IT,Sistemista,2010-01-25,full-time
+8,Nicoletta,Zanetti,Padova,Logistica,Responsabile magazzino,2006-09-11,full-time
+9,Alberto,Bertolini,Brescia,Commerciale,Addetto ufficio vendite,2026-06-15,full-time
+10,Francesco,Greco,Brescia,Logistica,Pianificatore logistico,2026-04-20,full-time
+11,Davide,Bruno,Brescia,Commerciale,Account manager,2020-09-07,full-time
+12,Barbara,Zanetti,Padova,Logistica,Magazziniera,2009-04-27,full-time
+13,Valentina,Battistella,Padova,Logistica,Magazziniera,2024-12-09,full-time
+14,Diego,Donati,Brescia,Produzione,Operatore di linea,2015-03-02,full-time
+15,Elisa,Menegatti,Brescia,Produzione,Operaia specializzata,2008-06-03,full-time
+16,Anna,Gatti,Brescia,Produzione,Capoturno,2013-04-01,full-time
+17,Sara,Conti,Brescia,Commerciale,Account manager,2019-03-04,full-time
+18,Simona,Mariani,Brescia,Produzione,Operaia specializzata,2016-09-26,full-time
+19,Paolo,Zanella,Brescia,IT,Tecnico help desk,2012-06-11,full-time
+20,Giovanni,Ferri,Padova,Logistica,Addetto spedizioni,2019-08-26,full-time
+21,Giorgio,Bianchi,Brescia,Produzione,Manutentore,2023-08-14,full-time
+22,Enrico,Martini,Padova,Amministrazione,Contabile,2017-01-30,full-time
+23,Luca,Ferri,Brescia,Commerciale,Area manager,2017-05-15,full-time
+24,Diego,Moretti,Padova,Produzione,Operatore di linea,2011-09-26,full-time
+25,Tommaso,Colombo,Brescia,Logistica,Addetto spedizioni,2022-09-05,full-time
+26,Filippo,Venturini,Brescia,Personale,Responsabile del personale,2009-02-09,full-time
+27,Paola,Marchetti,Brescia,Logistica,Responsabile magazzino,2006-07-31,full-time
+28,Luca,Rossi,Padova,Logistica,Addetto spedizioni,2010-06-14,full-time
+29,Stefano,Greco,Brescia,Commerciale,Account manager,2018-01-08,full-time
+30,Stefano,Moretti,Padova,Logistica,Addetto spedizioni,2006-07-10,full-time
+31,Enrico,Zanella,Brescia,IT,Sistemista,2017-11-13,part-time
+32,Fabio,Battistella,Brescia,Amministrazione,Addetto contabilità fornitori,2014-01-07,full-time
+33,Massimo,Franzoni,Brescia,Produzione,Operaio specializzato,2012-04-09,part-time
+34,Laura,Fontana,Brescia,Commerciale,Account manager,2021-04-12,full-time
+35,Mattia,Donati,Padova,Produzione,Operatore di linea,2025-08-25,full-time
+36,Chiara,Marchetti,Padova,IT,Sviluppatrice,2011-03-28,full-time
+37,Luca,Marchetti,Padova,Personale,Addetto paghe,2008-07-28,full-time
+38,Pietro,Cavalli,Brescia,Produzione,Addetto controllo qualità,2006-08-28,full-time
+39,Diego,Carraro,Brescia,Produzione,Operaio specializzato,2013-07-29,full-time
+40,Francesco,Frigo,Brescia,Produzione,Operatore di linea,2025-11-24,full-time
+41,Diego,Gatti,Brescia,Produzione,Responsabile di produzione,2014-02-24,full-time
+42,Paolo,Rinaldi,Brescia,Commerciale,Area manager,2012-06-04,full-time
+43,Matteo,Peruzzi,Brescia,Amministrazione,Addetto contabilità fornitori,2025-06-09,part-time
+44,Nicola,Zanetti,Padova,IT,Sistemista,2023-01-09,full-time
+45,Mattia,Bortolami,Brescia,IT,Sviluppatore,2013-09-16,full-time
+46,Emanuele,Benetti,Brescia,Produzione,Operatore di linea,2014-09-01,full-time
+47,Giulia,Marchetti,Brescia,Commerciale,Account manager,2022-10-03,full-time
+48,Daniela,Pasini,Brescia,Amministrazione,Responsabile amministrativa,2015-11-30,full-time
+49,Laura,Vitale,Brescia,Logistica,Magazziniera,2025-11-10,full-time
+50,Emanuele,Costa,Padova,Produzione,Operaio specializzato,2014-07-07,full-time
+51,Pietro,Venturini,Brescia,Logistica,Magazziniere,2016-05-09,part-time
+52,Tommaso,Lombardi,Brescia,IT,Sviluppatore,2019-11-04,full-time
+53,Francesca,Rizzo,Padova,Commerciale,Account manager,2019-11-04,full-time
+54,Paola,Vitale,Brescia,Amministrazione,Contabile,2014-12-09,part-time
+55,Emanuele,Ricci,Padova,Produzione,Manutentore,2011-08-22,full-time
+56,Chiara,Rizzo,Brescia,Amministrazione,Contabile,2011-02-28,part-time
+57,Federica,Barbieri,Brescia,Produzione,Operatrice di linea,2020-04-27,full-time
+58,Filippo,Gentile,Padova,Produzione,Operatore di linea,2014-10-27,full-time
+59,Paolo,Bettoni,Padova,Logistica,Pianificatore logistico,2019-04-08,full-time
+60,Ilaria,Sartori,Brescia,Commerciale,Addetta ufficio vendite,2022-01-17,full-time
+61,Chiara,Lombardi,Padova,Commerciale,Account manager,2023-02-06,full-time
+62,Alessandro,Ferrari,Brescia,Produzione,Operatore di linea,2012-07-30,full-time
+63,Simona,Carraro,Brescia,Personale,Addetta paghe,2015-06-22,full-time
+64,Massimo,Bassi,Brescia,Produzione,Manutentore,2025-09-01,full-time
+65,Davide,Lombardi,Brescia,IT,Tecnico help desk,2014-07-21,full-time
+66,Marco,Villa,Padova,Commerciale,Area manager,2014-03-03,full-time
+67,Andrea,Peruzzi,Padova,Produzione,Operatore di linea,2014-07-21,full-time
+68,Nicoletta,Menegatti,Padova,Logistica,Addetta spedizioni,2008-11-10,full-time
+69,Giorgia,Greco,Brescia,Amministrazione,Addetta tesoreria,2018-01-02,full-time
+70,Nicola,Benetti,Padova,Personale,HR generalist,2018-10-08,full-time
+71,Massimo,Gentile,Brescia,Produzione,Capoturno,2017-02-13,full-time
+72,Claudio,Fabbri,Brescia,Produzione,Capoturno,2018-04-16,full-time
+73,Ilaria,Pellegrini,Brescia,Logistica,Carrellista,2023-01-09,full-time
+74,Marta,Galli,Padova,Commerciale,Account manager,2020-01-13,full-time
+75,Michela,Battistella,Brescia,Commerciale,Responsabile commerciale,2009-03-16,full-time
+76,Diego,Ricci,Brescia,IT,Sistemista,2013-01-07,full-time
+77,Diego,Battistella,Padova,Logistica,Carrellista,2023-06-19,full-time
+78,Giovanni,Facchin,Brescia,Amministrazione,Controller,2013-10-21,part-time
+79,Matteo,Barbieri,Padova,Commerciale,Account manager,2016-05-09,full-time
+80,Luca,Bruno,Padova,Produzione,Responsabile di produzione,2009-03-09,full-time
+81,Alessandro,Gallo,Brescia,IT,Responsabile IT,2017-05-02,full-time
+82,Valentina,Bonomi,Brescia,Amministrazione,Controller,2011-01-17,full-time
+83,Alessandro,Longo,Brescia,Produzione,Operatore di linea,2013-05-06,full-time
+84,Irene,Rossi,Brescia,Produzione,Operatrice di linea,2015-10-05,full-time
+85,Nicoletta,Benetti,Padova,Logistica,Magazziniera,2019-10-14,full-time
+86,Francesco,Bianchi,Brescia,Personale,HR generalist,2017-11-27,full-time
+87,Giulia,Gentile,Brescia,Commerciale,Addetta ufficio vendite,2009-02-23,full-time
+88,Sara,Conti,Padova,Logistica,Addetta spedizioni,2016-09-12,full-time
+89,Francesco,Galli,Brescia,Produzione,Addetto controllo qualità,2021-11-15,full-time
+90,Chiara,Ricci,Brescia,Produzione,Operaia specializzata,2024-05-27,full-time
+91,Paolo,Rota,Brescia,Amministrazione,Contabile,2014-06-03,part-time
+92,Tommaso,Martinelli,Brescia,Produzione,Operaio specializzato,2010-08-09,full-time
+93,Claudio,Greco,Brescia,Produzione,Operaio specializzato,2024-02-26,full-time
+94,Enrico,Franzoni,Brescia,Logistica,Magazziniere,2021-11-15,full-time
+95,Pietro,Rizzo,Brescia,Produzione,Operatore di linea,2017-12-04,full-time
+96,Andrea,Costa,Padova,Commerciale,Account manager,2018-09-03,full-time
+97,Alessandro,Bruno,Padova,IT,Tecnico help desk,2009-12-21,full-time
+98,Nicola,Peruzzi,Padova,Logistica,Carrellista,2015-10-05,full-time
+99,Valentina,Donati,Brescia,Personale,Addetta formazione,2020-08-10,full-time
+100,Michele,Fontana,Brescia,Amministrazione,Addetto tesoreria,2020-11-23,part-time
+101,Filippo,Donati,Brescia,Personale,HR generalist,2009-08-10,full-time
+102,Monica,Scarpa,Brescia,Produzione,Addetta controllo qualità,2011-03-07,full-time
+103,Cristina,Pagani,Brescia,Amministrazione,Controller,2025-06-03,full-time
+104,Lorenzo,Bortolami,Padova,Produzione,Capoturno,2011-08-22,full-time
+105,Davide,Bonomi,Brescia,Amministrazione,Contabile,2018-11-26,full-time
+106,Luca,Bertolini,Brescia,IT,Sviluppatore,2025-04-28,full-time
+107,Giorgia,Moretti,Padova,Logistica,Carrellista,2006-06-12,part-time
+108,Martina,Fabbri,Padova,Amministrazione,Contabile,2015-11-16,full-time
+109,Daniela,Marino,Padova,Produzione,Operaia specializzata,2007-07-30,full-time
+110,Alessandra,Rossi,Padova,Logistica,Magazziniera,2025-06-03,full-time
+111,Giovanni,Cavalli,Brescia,Logistica,Magazziniere,2019-02-25,full-time
+112,Filippo,Greco,Brescia,Produzione,Addetto controllo qualità,2023-08-07,full-time
+113,Nicoletta,Mariani,Brescia,Logistica,Pianificatrice logistica,2025-06-03,full-time
+114,Mattia,Carraro,Brescia,Produzione,Operatore di linea,2026-02-02,full-time
+115,Riccardo,Peruzzi,Brescia,Logistica,Magazziniere,2024-02-12,full-time
+116,Serena,Ferri,Padova,Amministrazione,Addetta tesoreria,2025-04-07,full-time
+117,Claudio,Bertolini,Brescia,Commerciale,Account manager,2022-05-09,full-time
+118,Stefano,Martinelli,Padova,Amministrazione,Addetto contabilità fornitori,2023-01-02,full-time
+119,Alessandro,Frigo,Padova,Produzione,Operatore di linea,2025-12-01,full-time
+120,Francesco,Pellegrini,Padova,Logistica,Magazziniere,2025-07-07,full-time

@@ -1,0 +1,191 @@
+id,dipendente,voce,citta,giorno,importo,stato,dipendente_id
+2500,Stefano Greco,hotel,Bologna,2026-09-10,121.75,approvata,29
+2501,Sara Conti,hotel,Milano,2026-09-05,89.00,approvata,17
+2502,Chiara Lombardi,hotel,Torino,2026-09-02,134.96,approvata,61
+2503,Marco Villa,hotel,Milano,2026-09-14,147.94,approvata,66
+2504,Elena Moretti,pranzo,Milano,2026-09-06,13.81,approvata,5
+2505,Elena Moretti,hotel,Milano,2026-09-28,84.29,in attesa,5
+2506,Francesca Rizzo,pranzo,Milano,2026-09-02,20.12,approvata,53
+2507,Elena Moretti,pranzo,Torino,2026-09-02,21.12,in attesa,5
+2508,Elena Moretti,pranzo,Torino,2026-09-06,22.12,approvata,5
+2509,Marta Galli,hotel,Milano,2026-09-10,145.01,approvata,74
+2510,Luca Ferri,pranzo,Milano,2026-09-09,15.88,in attesa,23
+2511,Stefano Greco,pranzo,Milano,2026-09-27,15.50,in attesa,29
+2512,Marta Galli,pranzo,Roma,2026-09-25,11.30,in attesa,74
+2513,Sara Conti,taxi,Roma,2026-09-24,24.60,in attesa,17
+2514,Giulia Marchetti,cena,Roma,2026-09-18,40.56,in attesa,47
+2515,Sara Conti,pranzo,Milano,2026-09-26,25.07,in attesa,17
+2516,Paolo Rinaldi,cena,Roma,2026-09-28,33.05,in attesa,42
+2517,Giulia Marchetti,pranzo,Bologna,2026-09-05,22.24,approvata,47
+2518,Laura Fontana,taxi,Roma,2026-09-25,37.84,in attesa,34
+2519,Marco Villa,taxi,Milano,2026-09-07,16.04,in attesa,66
+2520,Marta Galli,taxi,Milano,2026-09-20,10.48,in attesa,74
+2521,Laura Fontana,hotel,Milano,2026-09-01,109.47,approvata,34
+2522,Andrea Costa,pranzo,Bologna,2026-09-05,12.05,approvata,96
+2523,Laura Fontana,hotel,Torino,2026-09-29,121.19,in attesa,34
+2524,Paolo Rinaldi,hotel,Torino,2026-09-08,93.78,in attesa,42
+2525,Matteo Barbieri,hotel,Milano,2026-09-25,115.33,in attesa,79
+2526,Marco Villa,hotel,Milano,2026-09-28,105.30,in attesa,66
+2527,Giulia Marchetti,cena,Torino,2026-09-24,32.27,in attesa,47
+2528,Matteo Barbieri,pranzo,Milano,2026-09-19,14.73,in attesa,79
+2529,Marta Galli,cena,Roma,2026-09-07,40.13,approvata,74
+2530,Paolo Rinaldi,pranzo,Roma,2026-09-09,23.06,in attesa,42
+2531,Davide Bruno,pranzo,Milano,2026-09-19,24.36,in attesa,11
+2532,Stefano Greco,taxi,Milano,2026-09-02,37.23,approvata,29
+2533,Sara Conti,pranzo,Bologna,2026-09-07,10.20,approvata,17
+2534,Francesca Rizzo,hotel,Bologna,2026-09-04,142.39,in attesa,53
+2535,Andrea Costa,taxi,Milano,2026-09-11,12.27,approvata,96
+2536,Luca Ferri,cena,Milano,2026-09-22,39.02,in attesa,23
+2537,Paolo Rinaldi,cena,Milano,2026-09-09,35.90,in attesa,42
+2538,Marta Galli,cena,Torino,2026-09-16,27.30,in attesa,74
+2539,Elena Moretti,hotel,Torino,2026-09-02,92.44,approvata,5
+2540,Marco Villa,taxi,Torino,2026-09-06,27.20,in attesa,66
+2541,Luca Ferri,taxi,Milano,2026-09-01,34.94,in attesa,23
+2542,Davide Bruno,pranzo,Roma,2026-09-24,14.99,in attesa,11
+2543,Luca Ferri,cena,Torino,2026-09-11,39.88,approvata,23
+2544,Marta Galli,cena,Bologna,2026-09-15,38.13,in attesa,74
+2545,Marta Galli,hotel,Milano,2026-09-06,144.12,approvata,74
+2546,Paolo Rinaldi,taxi,Roma,2026-09-24,14.14,in attesa,42
+2547,Marco Villa,hotel,Milano,2026-09-19,84.55,in attesa,66
+2548,Sara Conti,cena,Roma,2026-09-21,50.49,in attesa,17
+2549,Marco Villa,taxi,Roma,2026-09-01,27.25,approvata,66
+2550,Giulia Marchetti,hotel,Torino,2026-09-13,143.27,approvata,47
+2551,Paolo Rinaldi,cena,Milano,2026-09-06,41.75,approvata,42
+2552,Stefano Greco,taxi,Torino,2026-09-09,40.51,approvata,29
+2553,Francesca Rizzo,hotel,Milano,2026-09-25,89.18,in attesa,53
+2554,Sara Conti,pranzo,Milano,2026-09-03,10.23,approvata,17
+2555,Stefano Greco,pranzo,Milano,2026-09-22,21.74,in attesa,29
+2556,Francesca Rizzo,taxi,Milano,2026-09-03,11.73,approvata,53
+2557,Davide Bruno,hotel,Roma,2026-09-11,125.99,approvata,11
+2558,Laura Fontana,cena,Torino,2026-09-11,25.25,approvata,34
+2559,Francesca Rizzo,pranzo,Roma,2026-09-25,22.40,in attesa,53
+2560,Francesca Rizzo,pranzo,Milano,2026-09-15,17.39,in attesa,53
+2561,Marta Galli,taxi,Milano,2026-09-25,24.18,in attesa,74
+2562,Elena Moretti,taxi,Milano,2026-09-22,21.27,in attesa,5
+2563,Giulia Marchetti,hotel,Milano,2026-09-09,91.46,approvata,47
+2564,Marco Villa,taxi,Milano,2026-09-15,13.19,in attesa,66
+2565,Francesca Rizzo,hotel,Roma,2026-09-30,138.67,in attesa,53
+2566,Luca Ferri,taxi,Torino,2026-09-19,34.77,in attesa,23
+2567,Giulia Marchetti,hotel,Torino,2026-09-26,81.24,in attesa,47
+2568,Chiara Lombardi,pranzo,Torino,2026-09-11,13.55,approvata,61
+2569,Paolo Rinaldi,hotel,Torino,2026-09-26,100.62,in attesa,42
+2570,Elena Moretti,taxi,Milano,2026-09-07,19.01,approvata,5
+2571,Francesca Rizzo,taxi,Milano,2026-09-04,10.09,approvata,53
+2572,Marco Villa,hotel,Milano,2026-09-13,137.11,approvata,66
+2573,Paolo Rinaldi,pranzo,Roma,2026-09-19,24.71,in attesa,42
+2574,Elena Moretti,cena,Torino,2026-09-06,40.57,approvata,5
+2575,Marco Villa,taxi,Roma,2026-09-12,18.33,approvata,66
+2576,Matteo Barbieri,pranzo,Milano,2026-09-20,15.12,in attesa,79
+2577,Marta Galli,hotel,Milano,2026-09-13,85.09,approvata,74
+2578,Sara Conti,hotel,Torino,2026-09-19,106.66,in attesa,17
+2579,Marco Villa,cena,Roma,2026-09-06,50.21,approvata,66
+2580,Laura Fontana,hotel,Torino,2026-09-03,82.56,approvata,34
+2581,Paolo Rinaldi,cena,Milano,2026-09-11,43.93,approvata,42
+2582,Sara Conti,taxi,Milano,2026-09-19,41.10,in attesa,17
+2583,Francesca Rizzo,cena,Bologna,2026-09-01,27.87,approvata,53
+2584,Francesca Rizzo,taxi,Torino,2026-09-05,40.52,approvata,53
+2585,Davide Bruno,pranzo,Roma,2026-09-02,21.26,approvata,11
+2586,Matteo Barbieri,cena,Roma,2026-09-13,36.22,in attesa,79
+2587,Matteo Barbieri,taxi,Bologna,2026-09-24,40.84,in attesa,79
+2588,Chiara Lombardi,pranzo,Milano,2026-09-20,17.23,in attesa,61
+2589,Sara Conti,cena,Milano,2026-09-06,41.74,approvata,17
+2590,Giulia Marchetti,taxi,Milano,2026-09-23,41.27,in attesa,47
+2591,Paolo Rinaldi,cena,Milano,2026-09-30,51.40,in attesa,42
+2592,Andrea Costa,cena,Milano,2026-09-17,49.92,in attesa,96
+2593,Francesca Rizzo,pranzo,Milano,2026-09-27,16.18,in attesa,53
+2594,Andrea Costa,cena,Torino,2026-09-13,24.75,in attesa,96
+2595,Chiara Lombardi,cena,Milano,2026-09-01,44.44,in attesa,61
+2596,Andrea Costa,hotel,Roma,2026-09-30,102.27,in attesa,96
+2597,Paolo Rinaldi,cena,Roma,2026-09-02,40.55,approvata,42
+2598,Francesca Rizzo,pranzo,Bologna,2026-09-15,23.72,in attesa,53
+2599,Stefano Greco,taxi,Milano,2026-09-24,31.46,in attesa,29
+2600,Marta Galli,cena,Torino,2026-09-05,46.32,approvata,74
+2601,Chiara Lombardi,cena,Milano,2026-09-03,33.62,in attesa,61
+2602,Matteo Barbieri,taxi,Milano,2026-09-21,22.16,in attesa,79
+2603,Paolo Rinaldi,taxi,Milano,2026-09-23,32.54,in attesa,42
+2604,Paolo Rinaldi,taxi,Milano,2026-09-08,34.97,approvata,42
+2605,Chiara Lombardi,hotel,Torino,2026-09-10,88.27,approvata,61
+2606,Laura Fontana,hotel,Torino,2026-09-23,143.05,in attesa,34
+2607,Davide Bruno,pranzo,Torino,2026-09-18,18.23,in attesa,11
+2608,Davide Bruno,cena,Milano,2026-09-19,25.15,in attesa,11
+2609,Paolo Rinaldi,hotel,Milano,2026-09-18,93.92,in attesa,42
+2610,Francesca Rizzo,pranzo,Roma,2026-09-09,22.59,approvata,53
+2611,Luca Ferri,hotel,Torino,2026-09-23,132.63,in attesa,23
+2612,Andrea Costa,cena,Milano,2026-09-14,27.20,in attesa,96
+2613,Marta Galli,cena,Roma,2026-09-15,47.76,in attesa,74
+2614,Giulia Marchetti,hotel,Roma,2026-09-09,144.77,approvata,47
+2615,Chiara Lombardi,hotel,Milano,2026-09-14,83.93,approvata,61
+2616,Paolo Rinaldi,cena,Milano,2026-09-01,44.00,in attesa,42
+2617,Luca Ferri,cena,Torino,2026-09-30,34.02,in attesa,23
+2618,Stefano Greco,pranzo,Torino,2026-09-24,10.81,in attesa,29
+2619,Sara Conti,taxi,Roma,2026-09-04,30.78,approvata,17
+2620,Matteo Barbieri,taxi,Torino,2026-09-20,23.76,in attesa,79
+2621,Chiara Lombardi,hotel,Torino,2026-09-04,85.31,approvata,61
+2622,Francesca Rizzo,hotel,Milano,2026-09-30,140.91,in attesa,53
+2623,Chiara Lombardi,taxi,Milano,2026-09-30,38.88,in attesa,61
+2624,Elena Moretti,pranzo,Milano,2026-09-22,18.78,in attesa,5
+2625,Chiara Lombardi,pranzo,Milano,2026-09-27,20.86,in attesa,61
+2626,Giulia Marchetti,pranzo,Roma,2026-09-23,12.50,in attesa,47
+2627,Paolo Rinaldi,pranzo,Roma,2026-09-16,23.22,in attesa,42
+2628,Andrea Costa,taxi,Milano,2026-09-20,35.78,in attesa,96
+2629,Stefano Greco,cena,Torino,2026-09-30,43.68,in attesa,29
+2630,Andrea Costa,taxi,Torino,2026-09-17,35.88,in attesa,96
+2631,Paolo Rinaldi,hotel,Roma,2026-09-06,147.13,in attesa,42
+2632,Matteo Barbieri,pranzo,Roma,2026-09-01,21.24,approvata,79
+2633,Marta Galli,hotel,Roma,2026-09-12,142.89,approvata,74
+2634,Giulia Marchetti,pranzo,Roma,2026-09-26,23.87,in attesa,47
+2635,Laura Fontana,cena,Roma,2026-09-05,36.95,approvata,34
+2636,Marta Galli,hotel,Roma,2026-09-11,85.14,approvata,74
+2637,Davide Bruno,hotel,Milano,2026-09-11,83.43,in attesa,11
+2638,Laura Fontana,pranzo,Bologna,2026-09-05,18.27,approvata,34
+2639,Andrea Costa,taxi,Roma,2026-09-28,21.13,in attesa,96
+2640,Matteo Barbieri,taxi,Roma,2026-09-16,27.06,in attesa,79
+2641,Paolo Rinaldi,pranzo,Roma,2026-09-30,11.58,in attesa,42
+2642,Giulia Marchetti,cena,Torino,2026-09-04,48.75,approvata,47
+2643,Sara Conti,cena,Roma,2026-09-25,48.29,in attesa,17
+2644,Stefano Greco,cena,Milano,2026-09-03,30.06,approvata,29
+2645,Davide Bruno,hotel,Roma,2026-09-22,94.01,in attesa,11
+2646,Francesca Rizzo,hotel,Bologna,2026-09-30,115.38,in attesa,53
+2647,Stefano Greco,pranzo,Torino,2026-09-28,24.31,in attesa,29
+2648,Laura Fontana,cena,Torino,2026-09-12,36.26,in attesa,34
+2649,Francesca Rizzo,taxi,Milano,2026-09-26,20.27,in attesa,53
+2650,Francesca Rizzo,hotel,Milano,2026-09-01,86.16,in attesa,53
+2651,Giulia Marchetti,taxi,Torino,2026-09-05,36.71,approvata,47
+2652,Marco Villa,hotel,Torino,2026-09-21,144.70,in attesa,66
+2653,Andrea Costa,pranzo,Bologna,2026-09-22,18.14,in attesa,96
+2654,Stefano Greco,pranzo,Torino,2026-09-04,13.01,approvata,29
+2655,Laura Fontana,taxi,Milano,2026-09-30,41.82,in attesa,34
+2656,Luca Ferri,hotel,Milano,2026-09-18,110.62,in attesa,23
+2657,Laura Fontana,hotel,Milano,2026-09-22,139.22,in attesa,34
+2658,Luca Ferri,taxi,Roma,2026-09-16,33.86,in attesa,23
+2659,Giulia Marchetti,hotel,Bologna,2026-09-11,117.15,in attesa,47
+2660,Matteo Barbieri,taxi,Milano,2026-09-05,41.88,approvata,79
+2661,Luca Ferri,cena,Roma,2026-09-25,47.39,in attesa,23
+2662,Matteo Barbieri,hotel,Roma,2026-09-13,107.83,approvata,79
+2663,Andrea Costa,cena,Torino,2026-09-18,36.45,in attesa,96
+2664,Matteo Barbieri,cena,Roma,2026-09-30,51.08,in attesa,79
+2665,Chiara Lombardi,taxi,Milano,2026-09-29,41.59,in attesa,61
+2666,Giulia Marchetti,cena,Milano,2026-09-29,40.70,in attesa,47
+2667,Elena Moretti,taxi,Roma,2026-09-15,30.45,in attesa,5
+2668,Francesca Rizzo,pranzo,Milano,2026-09-28,12.50,in attesa,53
+2669,Luca Ferri,cena,Milano,2026-09-27,48.91,in attesa,23
+2670,Stefano Greco,cena,Roma,2026-09-03,34.68,approvata,29
+2671,Marta Galli,cena,Milano,2026-09-14,46.94,approvata,74
+2672,Chiara Lombardi,taxi,Torino,2026-09-01,29.92,approvata,61
+2673,Matteo Barbieri,pranzo,Bologna,2026-09-24,22.66,in attesa,79
+2674,Francesca Rizzo,taxi,Torino,2026-09-29,26.86,in attesa,53
+2675,Stefano Greco,cena,Milano,2026-09-15,30.41,in attesa,29
+2676,Paolo Rinaldi,taxi,Roma,2026-09-29,29.51,in attesa,42
+2677,Davide Bruno,hotel,Bologna,2026-09-10,124.02,in attesa,11
+2678,Elena Moretti,hotel,Milano,2026-09-19,115.47,in attesa,5
+2679,Sara Conti,hotel,Torino,2026-09-18,145.70,in attesa,17
+2680,Stefano Greco,pranzo,Roma,2026-09-04,22.92,approvata,29
+2681,Marco Villa,cena,Bologna,2026-09-24,42.45,in attesa,66
+2682,Chiara Lombardi,cena,Milano,2026-09-26,34.67,in attesa,61
+2683,Sara Conti,taxi,Roma,2026-09-02,19.20,in attesa,17
+2684,Giulia Marchetti,cena,Milano,2026-09-06,38.71,approvata,47
+2685,Chiara Lombardi,hotel,Torino,2026-09-11,125.57,approvata,61
+2686,Stefano Greco,cena,Torino,2026-09-20,46.46,in attesa,29
+2687,Francesca Rizzo,hotel,Torino,2026-09-23,97.17,in attesa,53
+2688,Marco Villa,pranzo,Milano,2026-09-12,17.22,in attesa,66
+2689,Laura Fontana,cena,Milano,2026-09-14,40.43,approvata,34
