@@ -1,0 +1,16 @@
+# Modulo 4 — le dipendenze del progetto Valtesa, le stesse per tutto il modulo.
+# Vanno nel venv del modulo, uno solo, nella cartella del modulo (vedi README.md).
+# Le versioni fissate non si cambiano.
+# Serve Python 3.10 o più recente (openai-agents 0.22.3, mcp 2.x).
+openai-agents==0.22.3
+openai
+chromadb==1.5.9
+mcp>=2.2,<3
+pydantic
+numpy
+python-dotenv
+pypdf
+python-docx
+beautifulsoup4
+markdown-it-py
+pytest

@@ -1,0 +1,14 @@
+# la chiave
+.env
+.env.*
+!.env.example
+# il venv del modulo sta due cartelle sopra, ma per sicurezza
+.venv/
+__pycache__/
+.pytest_cache/
+# l'indice dei documenti: lo costruisce indicizza.py, e Chroma lo riscrive a ogni apertura
+indice/
+# le conversazioni salvate dall'assistente
+sessioni.db*
+# quello che scrivono i programmi
+output/
