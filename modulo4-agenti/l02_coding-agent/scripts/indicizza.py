@@ -2,8 +2,9 @@
 
 Legge tutti i documenti della cartella (PDF, DOCX, HTML, MD), li pulisce, li
 taglia in chunk, calcola gli embedding e li salva nella collection «valtesa»
-in indice/. Alla fine prova una ricerca. L'indice nel progetto è già
-costruito: si rilancia solo se cambiano i documenti.
+in indice/. Alla fine prova una ricerca. L'indice non è in git (Chroma
+riscrive i suoi file a ogni apertura): si lancia una volta in ogni cartella
+di lezione, e di nuovo se cambiano i documenti.
 
 È lo script dell'obiettivo 2 di Modulo 3 · Lezione 12, sui documenti del progetto.
 

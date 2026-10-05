@@ -12,3 +12,5 @@ indice/
 sessioni.db*
 # quello che scrivono i programmi
 output/
+# le approvazioni che Claude Code salva nella cartella
+.claude/settings.local.json
