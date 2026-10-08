@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mappa del progetto Valtesa</title>
+<style>
+  :root {
+    --bg: #fafaf7; --fg: #1d1d1b; --muted: #66665f; --line: #d9d8d0; --card: #fff;
+    --prog: #1f5fbf; --lib: #2e7d4f; --dati: #b36b00; --test: #7a3fa0; --off: #8a8a82;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #17171a; --fg: #ecebe6; --muted: #a2a198; --line: #3a3a40; --card: #1f1f24;
+      --prog: #7aa8f0; --lib: #6fcf97; --dati: #f0b45a; --test: #c79bec; --off: #8a8a92; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { margin: 0 0 4px; font-size: 1.9rem; }
+  h2 { margin: 40px 0 12px; font-size: 1.25rem; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  p.sub { color: var(--muted); margin: 0 0 8px; }
+  code { font: 0.9em ui-monospace, Menlo, Consolas, monospace; background: color-mix(in srgb, var(--fg) 8%, transparent);
+    padding: 1px 5px; border-radius: 4px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .85rem; color: var(--muted); margin: 12px 0; }
+  .legend span::before { content: ""; display: inline-block; width: 11px; height: 11px; border-radius: 3px;
+    margin-right: 6px; vertical-align: -1px; background: currentColor; }
+  .l-prog::before { color: var(--prog); } .l-lib::before { color: var(--lib); }
+  .l-dati::before { color: var(--dati); } .l-test::before { color: var(--test); } .l-off::before { color: var(--off); }
+  .diagram { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px; overflow-x: auto; }
+  .diagram svg { display: block; min-width: 760px; width: 100%; height: auto; }
+  svg text { fill: var(--fg); font: 13px system-ui, sans-serif; }
+  svg .sm { font-size: 11px; fill: var(--muted); }
+  svg .box { fill: var(--card); stroke-width: 1.8; }
+  svg .prog { stroke: var(--prog); } svg .lib { stroke: var(--lib); }
+  svg .dati { stroke: var(--dati); } svg .test { stroke: var(--test); } svg .off { stroke: var(--off); stroke-dasharray: 4 3; }
+  svg .arr { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#a); }
+  svg .arr.t { stroke: var(--test); marker-end: url(#at); stroke-dasharray: 5 3; }
+  svg .arr.d { stroke: var(--dati); marker-end: url(#ad); }
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+  .card { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--line);
+    border-radius: 8px; padding: 12px 14px; }
+  .card.prog { border-left-color: var(--prog); } .card.lib { border-left-color: var(--lib); }
+  .card.dati { border-left-color: var(--dati); } .card.test { border-left-color: var(--test); }
+  .card.off { border-left-color: var(--off); }
+  .card h3 { margin: 0 0 4px; font-size: 1rem; }
+  .card p { margin: 4px 0; font-size: .92rem; }
+  .card .rel { color: var(--muted); font-size: .85rem; }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line);
+    border-radius: 8px; font-size: .92rem; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+  tr:last-child td { border-bottom: 0; }
+  .scroll { overflow-x: auto; }
+  ul.note { margin: 8px 0; padding-left: 20px; } ul.note li { margin: 4px 0; }
+  .flow { counter-reset: s; list-style: none; padding: 0; margin: 8px 0; }
+  .flow li { counter-increment: s; position: relative; padding: 4px 0 4px 34px; }
+  .flow li::before { content: counter(s); position: absolute; left: 0; top: 4px; width: 24px; height: 24px;
+    border-radius: 50%; background: var(--prog); color: var(--bg); font-size: .8rem; font-weight: 700;
+    display: grid; place-items: center; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Mappa del progetto Valtesa</h1>
+  <p class="sub">I file della cartella <code>scripts/</code>, cosa fa ognuno e chi chiama chi. Ricavata leggendo il codice.</p>
+
+  <h2>1. Il quadro</h2>
+  <p>Due programmi che non si conoscono fra loro. <code>rimborsi.py</code> è autonomo: usa solo la libreria standard e i CSV. <code>assistente.py</code> usa il toolkit <code>aikit/</code>, l'indice dei documenti e il database. L'indice lo costruisce un terzo script, <code>indicizza.py</code>.</p>
+
+  <div class="legend">
+    <span class="l-prog">programma (si lancia)</span>
+    <span class="l-lib">libreria <code>aikit/</code></span>
+    <span class="l-dati">dati e documenti</span>
+    <span class="l-test">test</span>
+    <span class="l-off">generato / non usato</span>
+  </div>
+
+  <div class="diagram">
+  <svg viewBox="0 0 900 600" role="img" aria-label="Diagramma: chi chiama chi nel progetto Valtesa">
+    <defs>
+      <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker>
+      <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--test)"/></marker>
+      <marker id="ad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--dati)"/></marker>
+    </defs>
+
+    <!-- test -->
+    <rect class="box test" x="20" y="20" width="170" height="46" rx="8"/><text x="105" y="40" text-anchor="middle">tests/test_rimborsi.py</text><text class="sm" x="105" y="56" text-anchor="middle">6 unit + 3 da riga di comando</text>
+    <rect class="box test" x="640" y="20" width="200" height="46" rx="8"/><text x="740" y="40" text-anchor="middle">tests/test_assistente.py</text><text class="sm" x="740" y="56" text-anchor="middle">5 test, nessuna chiamata API</text>
+
+    <!-- programmi -->
+    <rect class="box prog" x="20" y="130" width="170" height="52" rx="8"/><text x="105" y="152" text-anchor="middle" font-weight="700">rimborsi.py</text><text class="sm" x="105" y="168" text-anchor="middle">controllo note spese</text>
+    <rect class="box prog" x="360" y="130" width="170" height="52" rx="8"/><text x="445" y="152" text-anchor="middle" font-weight="700">assistente.py</text><text class="sm" x="445" y="168" text-anchor="middle">agente: 2 tool</text>
+    <rect class="box prog" x="680" y="200" width="170" height="52" rx="8"/><text x="765" y="222" text-anchor="middle" font-weight="700">indicizza.py</text><text class="sm" x="765" y="238" text-anchor="middle">costruisce l'indice</text>
+
+    <!-- libreria -->
+    <rect class="box lib" x="360" y="320" width="170" height="46" rx="8"/><text x="445" y="340" text-anchor="middle">aikit/vectorstore.py</text><text class="sm" x="445" y="356" text-anchor="middle">collection Chroma</text>
+    <rect class="box lib" x="360" y="430" width="170" height="46" rx="8"/><text x="445" y="450" text-anchor="middle">aikit/embeddings.py</text><text class="sm" x="445" y="466" text-anchor="middle">embed() → OpenAI</text>
+    <rect class="box lib" x="700" y="320" width="150" height="46" rx="8"/><text x="775" y="340" text-anchor="middle">aikit/loaders/</text><text class="sm" x="775" y="356" text-anchor="middle">load(path)</text>
+    <rect class="box lib" x="700" y="395" width="150" height="46" rx="8"/><text x="775" y="415" text-anchor="middle">aikit/clean.py</text><text class="sm" x="775" y="431" text-anchor="middle">pipeline_for, clean</text>
+    <rect class="box lib" x="700" y="470" width="150" height="46" rx="8"/><text x="775" y="490" text-anchor="middle">aikit/chunk.py</text><text class="sm" x="775" y="506" text-anchor="middle">chunk_recursive</text>
+    <rect class="box off" x="560" y="540" width="170" height="40" rx="8"/><text x="645" y="558" text-anchor="middle">aikit/llm_client.py</text><text class="sm" x="645" y="572" text-anchor="middle">non lo usa nessuno</text>
+
+    <!-- dati -->
+    <rect class="box dati" x="20" y="240" width="170" height="52" rx="8"/><text x="105" y="260" text-anchor="middle">dati/*.csv</text><text class="sm" x="105" y="276" text-anchor="middle">note_spese, massimali, export</text>
+    <rect class="box dati" x="200" y="320" width="140" height="46" rx="8"/><text x="270" y="340" text-anchor="middle">dati/valtesa.db</text><text class="sm" x="270" y="356" text-anchor="middle">SQLite, sola lettura</text>
+    <rect class="box off" x="170" y="430" width="170" height="46" rx="8"/><text x="255" y="450" text-anchor="middle">indice/</text><text class="sm" x="255" y="466" text-anchor="middle">Chroma, non in git</text>
+    <rect class="box dati" x="700" y="110" width="150" height="46" rx="8"/><text x="775" y="130" text-anchor="middle">ufficio/</text><text class="sm" x="775" y="146" text-anchor="middle">6 documenti</text>
+    <rect class="box off" x="200" y="130" width="130" height="52" rx="8"/><text x="265" y="152" text-anchor="middle">sessioni.db</text><text class="sm" x="265" y="168" text-anchor="middle">conversazioni, generato</text>
+
+    <!-- frecce -->
+    <path class="arr t" d="M105 66 V130"/>
+    <path class="arr t" d="M740 66 V90 H445 V130"/>
+    <path class="arr d" d="M105 182 V240"/>
+    <path class="arr" d="M360 156 H330"/>
+    <path class="arr d" d="M400 182 V250 H270 V320"/>
+    <path class="arr" d="M445 182 V320"/>
+    <path class="arr" d="M445 366 V430"/>
+    <path class="arr d" d="M370 366 V398 H350 V453 H340"/>
+    <path class="arr d" d="M775 156 V200"/>
+    <path class="arr" d="M765 252 V320"/>
+    <path class="arr" d="M700 230 H620 V343 H530"/>
+    <path class="arr" d="M700 493 H570 V460 H530"/>
+  </svg>
+  </div>
+  <p class="sub" style="margin-top:8px">Frecce piene: «importa / chiama». Arancioni: «legge o scrive dati». Tratteggiate viola: «il test controlla». <code>indicizza.py</code> chiama direttamente <code>loaders</code>, <code>clean</code>, <code>chunk</code> ed <code>embeddings</code>: vedi la tabella al punto 3.</p>
+
+  <h2>2. Cosa fa ogni file</h2>
+
+  <h3>Programmi</h3>
+  <div class="grid">
+    <div class="card prog">
+      <h3>rimborsi.py <span class="rel">· 93 righe</span></h3>
+      <p>Controlla le note spese contro i massimali: per ogni nota cerca il massimale in vigore nel giorno della spesa (<code>valido_dal</code> ≤ giorno) e stampa «ok» o «FUORI MASSIMALE». In fondo il riepilogo per città e il totale.</p>
+      <p>Funzioni: <code>carica_massimali</code>, <code>massimale</code>, <code>controlla</code>, <code>main</code>. Argomenti: un altro export CSV, <code>--dipendente</code>.</p>
+      <p class="rel">Legge <code>dati/massimali.csv</code> e <code>dati/note_spese.csv</code> (o l'export dato). Non importa nulla di <code>aikit</code>.</p>
+    </div>
+    <div class="card prog">
+      <h3>assistente.py <span class="rel">· 131 righe</span></h3>
+      <p>L'assistente per i dipendenti (Agents SDK, <code>gpt-5.6-luna</code>). Due tool: <code>cerca_documenti</code> (4 chunk dall'indice) e <code>query_db</code> (solo SELECT, max 50 righe). Stampa i tool chiamati prima della risposta e la «strada» dopo. Usa ancora <code>Runner.run_sync</code>.</p>
+      <p class="rel">Importa <code>aikit.vectorstore</code>. Legge <code>dati/valtesa.db</code> e l'indice <code>indice/</code>. Scrive <code>sessioni.db</code>. Chiama le API.</p>
+    </div>
+    <div class="card prog">
+      <h3>indicizza.py <span class="rel">· 52 righe</span></h3>
+      <p>Costruisce l'indice: legge ogni file di <code>ufficio/</code>, lo pulisce, lo taglia in chunk da 500 caratteri, calcola gli embedding e li salva nella collection «valtesa». Id dei chunk: <code>nome-file-000</code>. Alla fine prova una ricerca.</p>
+      <p class="rel">Va lanciato prima di <code>assistente.py</code>. Chiama le API (embedding).</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:24px">Libreria aikit/</h3>
+  <div class="grid">
+    <div class="card lib"><h3>vectorstore.py</h3><p>La collection Chroma in <code>indice/</code>: <code>apri_collection</code>, <code>crea_collection</code> (cancella e ricrea), <code>indicizza</code>, <code>search</code>.</p><p class="rel">Importa <code>embeddings</code>. Usato da <code>assistente.py</code> e <code>indicizza.py</code>.</p></div>
+    <div class="card lib"><h3>embeddings.py</h3><p><code>embed(testi)</code> con backend OpenAI (<code>text-embedding-3-small</code>) o locale; <code>cosine_similarity</code>.</p><p class="rel">Usato da <code>vectorstore</code>, <code>chunk</code> e <code>indicizza.py</code>.</p></div>
+    <div class="card lib"><h3>loaders/</h3><p><code>load(path)</code> sceglie il loader dal suffisso e ritorna una lista di <code>Document</code>: <code>pdf.py</code> (una per pagina), <code>docx.py</code>, <code>html.py</code>, <code>markdown.py</code>, <code>txt.py</code>. <code>base.py</code> definisce <code>Document</code>.</p><p class="rel">Usato da <code>indicizza.py</code>.</p></div>
+    <div class="card lib"><h3>clean.py</h3><p>Passi di pulizia componibili (unicode, spazi, trattini, numeri di pagina, righe ripetute…). <code>pipeline_for(path)</code> sceglie i passi per formato, <code>clean(testo, passi)</code> li applica.</p><p class="rel">Usato da <code>indicizza.py</code>.</p></div>
+    <div class="card lib"><h3>chunk.py</h3><p>Strategie di chunking: <code>chunk_fixed</code>, <code>chunk_recursive</code>, <code>chunk_semantic</code>. Il progetto usa solo <code>chunk_recursive</code>.</p><p class="rel">Importa <code>embeddings</code> (per il semantico). <code>carica_documenti</code> punta a un <code>dataset/</code> che qui non c'è.</p></div>
+    <div class="card off"><h3>llm_client.py</h3><p><code>LLMClient</code> e <code>cost_usd</code>, resti del Modulo 2.</p><p class="rel">Non lo importa nessun file del progetto.</p></div>
+  </div>
+
+  <h3 style="margin-top:24px">Dati, documenti, test</h3>
+  <div class="grid">
+    <div class="card dati"><h3>dati/</h3><p>Export del gestionale, non si modificano. <code>note_spese.csv</code> (1500 note), <code>massimali.csv</code>, <code>export-ottobre.csv</code> (altro export), <code>dipendenti.csv</code>, <code>assenze.csv</code>. <code>valtesa.db</code> contiene le tabelle <code>dipendenti</code>, <code>assenze</code>, <code>note_spese</code>, <code>massimali</code>.</p></div>
+    <div class="card dati"><h3>ufficio/</h3><p>I 6 documenti dell'ufficio (PDF, DOCX, HTML, MD): ferie e permessi, trasferte e note spese, circolari 2026, welfare e buoni pasto, ingresso e dotazioni, FAQ del portale. Non si modificano.</p></div>
+    <div class="card test"><h3>tests/test_rimborsi.py</h3><p>Importa <code>controlla</code> da <code>rimborsi</code> (massimali per data, cambio al 1° luglio) e lancia il programma come processo per i casi: città senza massimale, <code>--dipendente</code>, riepilogo per città.</p></div>
+    <div class="card test"><h3>tests/test_assistente.py</h3><p>Importa <code>query_db</code>, <code>DB</code>, <code>COLLECTION</code> da <code>assistente</code> e <code>aikit.vectorstore</code>. Controlla che il database abbia lo stesso numero di righe dei CSV, che <code>query_db</code> rifiuti i non-SELECT e rimandi gli errori, e che l'indice sia costruito.</p></div>
+    <div class="card"><h3>Il resto</h3><p><code>AGENTS.md</code> (regole per il coding agent), <code>README.md</code>/<code>README.pdf</code>, <code>SPIEGAZIONE.md</code>, <code>OBIETTIVI.md</code> e <code>ticket-report.md</code> (materiale della lezione), <code>requirements.txt</code>, <code>pytest.ini</code>, <code>.env.example</code>, <code>.gitignore</code>.</p></div>
+  </div>
+
+  <h2>3. Chi chiama chi</h2>
+  <div class="scroll">
+  <table>
+    <tr><th>File</th><th>Importa / chiama</th><th>Legge o scrive</th></tr>
+    <tr><td><code>rimborsi.py</code></td><td>solo libreria standard</td><td>legge <code>dati/massimali.csv</code>, <code>dati/note_spese.csv</code> o l'export dato</td></tr>
+    <tr><td><code>assistente.py</code></td><td><code>agents</code>, <code>aikit.vectorstore</code></td><td>legge <code>valtesa.db</code> e <code>indice/</code>; scrive <code>sessioni.db</code></td></tr>
+    <tr><td><code>indicizza.py</code></td><td><code>aikit.loaders.load</code>, <code>aikit.clean</code>, <code>aikit.chunk.chunk_recursive</code>, <code>aikit.embeddings.embed</code>, <code>aikit.vectorstore</code></td><td>legge <code>ufficio/</code>; scrive <code>indice/</code></td></tr>
+    <tr><td><code>aikit/vectorstore.py</code></td><td><code>chromadb</code>, <code>aikit.embeddings</code></td><td><code>indice/</code></td></tr>
+    <tr><td><code>aikit/chunk.py</code></td><td><code>aikit.embeddings</code></td><td>—</td></tr>
+    <tr><td><code>aikit/embeddings.py</code></td><td>API OpenAI (o modello locale)</td><td>—</td></tr>
+    <tr><td><code>aikit/loaders/dispatch.py</code></td><td>i cinque loader per formato</td><td>il file indicato</td></tr>
+    <tr><td><code>tests/test_rimborsi.py</code></td><td><code>rimborsi</code> (import e subprocess)</td><td><code>dati/massimali.csv</code>, file temporanei</td></tr>
+    <tr><td><code>tests/test_assistente.py</code></td><td><code>assistente</code>, <code>aikit.vectorstore</code></td><td><code>valtesa.db</code>, CSV, <code>indice/</code></td></tr>
+  </table>
+  </div>
+
+  <h2>4. Due percorsi da seguire</h2>
+  <p><strong>Costruire l'indice</strong> (<code>python indicizza.py</code>):</p>
+  <ol class="flow">
+    <li>per ogni file di <code>ufficio/</code>, <code>load()</code> sceglie il loader dal suffisso e ritorna i <code>Document</code>;</li>
+    <li><code>clean()</code> con i passi di <code>pipeline_for()</code> ripulisce il testo;</li>
+    <li><code>chunk_recursive(testo, 500)</code> lo taglia;</li>
+    <li><code>vectorstore.crea_collection</code> svuota «valtesa», poi <code>indicizza</code> salva chunk ed embedding (<code>embed</code>) in <code>indice/</code>.</li>
+  </ol>
+  <p><strong>Una domanda all'assistente</strong> (<code>python assistente.py</code>):</p>
+  <ol class="flow">
+    <li><code>Runner.run_sync</code> passa la domanda al modello, con la sessione in <code>sessioni.db</code>;</li>
+    <li>se serve una regola, il modello chiama <code>cerca_documenti</code> → <code>vectorstore.search</code> → <code>embed(domanda)</code> → i 4 chunk più vicini, con id da citare;</li>
+    <li>se servono numeri, chiama <code>query_db</code> → SELECT su <code>valtesa.db</code> aperto in sola lettura;</li>
+    <li>la risposta esce con i tool chiamati e la «strada» (documenti, dati, documenti+dati, nessuna).</li>
+  </ol>
+
+  <h2>5. Cose da sapere</h2>
+  <ul class="note">
+    <li><strong>I due programmi non condividono codice.</strong> <code>rimborsi.py</code> legge i CSV; <code>assistente.py</code> interroga <code>valtesa.db</code>, che ha le stesse tabelle. Un test verifica che abbiano lo stesso numero di righe.</li>
+    <li><strong>I massimali sono in due posti</strong> (<code>massimali.csv</code> e la tabella <code>massimali</code>). Un massimale nuovo arriva con un export nuovo, non a mano.</li>
+    <li><strong><code>indice/</code> e <code>sessioni.db</code> non sono in git</strong>: nella copia pulita non ci sono. Senza <code>indice/</code> <code>test_indice_dei_documenti_costruito</code> non può passare e <code>cerca_documenti</code> non trova nulla: prima <code>python indicizza.py</code>.</li>
+    <li><strong><code>aikit/</code> è codice dei moduli precedenti</strong>: le docstring parlano di altre lezioni. Per questo progetto contano <code>vectorstore</code>, <code>embeddings</code>, <code>loaders</code>, <code>clean</code> e <code>chunk_recursive</code>.</li>
+  </ul>
+
+  <h2>6. Cosa ho corretto nella mappa dell'agente</h2>
+  <ul class="note">
+    <li><strong>La freccia verso <code>indice/</code></strong> partiva da <code>aikit/embeddings.py</code>. Quel file non nomina <code>indice/</code>: la cartella è in <code>aikit/vectorstore.py</code>, riga 29 (<code>CHROMA_DIR</code>), usata alle righe 34 e 48. La tabella della mappa lo diceva giusto, lo schema no.</li>
+    <li><strong>«Controlla che il database coincida con i CSV»</strong>: <code>test_database_uguale_ai_csv</code> (<code>tests/test_assistente.py</code>, righe 17-24) confronta solo il numero di righe di ogni tabella. Un valore diverso passerebbe lo stesso.</li>
+    <li>Il rimando «vedi la tabella al punto 4» portava alla sezione sbagliata: la tabella è al punto 3. Le righe <code>tool: …</code> si stampano prima della risposta e la «strada» dopo (<code>assistente.py</code>, righe 128-131). <code>tests/test_rimborsi.py</code> legge anche <code>dati/massimali.csv</code>.</li>
+    <li>Il resto l'ho controllato aprendo i file alle righe citate: i due modelli, i numeri di riga e i conteggi tornano.</li>
+  </ul>
+</main>
+</body>
+</html>
