@@ -49,7 +49,7 @@ Le lezioni pubblicate prima dell'introduzione dei due branch (settembre 2026) ha
 | Modulo 3 — RAG | 15 | 4h | Progetto Modulo 3 |
 | Modulo 4 — Agenti | 1 | 2h | Cosa fa una harness |
 | Modulo 4 — Agenti | 2 | 2h | Lavorare con un coding agent: contesto, piano, diff, verifica |
-| Modulo 4 — Agenti | 3 | 4h | Primo Agente |
+| Modulo 4 — Agenti | 3 | 4h | Lab: codice non vostro, con il coding agent |
 | Modulo 4 — Agenti | 4 | 2h | LangGraph Intro |
 | Modulo 4 — Agenti | 5 | 2h | LangGraph Patterns |
 | Modulo 4 — Agenti | 6 | 4h | Lab Agenti Base |
