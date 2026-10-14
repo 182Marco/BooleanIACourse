@@ -1,0 +1,15 @@
+voce,citta,massimale,valido_dal
+cena,Milano,45,2026-01-01
+cena,Milano,55,2026-07-01
+cena,Torino,40,2026-01-01
+cena,Roma,45,2026-01-01
+pranzo,Milano,25,2026-01-01
+pranzo,Torino,22,2026-01-01
+pranzo,Roma,25,2026-01-01
+hotel,Milano,130,2026-01-01
+hotel,Milano,150,2026-07-01
+hotel,Torino,110,2026-01-01
+hotel,Roma,140,2026-01-01
+taxi,Milano,40,2026-01-01
+taxi,Torino,35,2026-01-01
+taxi,Roma,40,2026-01-01
