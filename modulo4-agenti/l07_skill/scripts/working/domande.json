@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "domanda": "Quali documenti devo consegnare all'Ufficio del Personale il primo giorno di lavoro?",
+    "risposta": "I sette della tabella della procedura di ingresso, tra cui le coordinate bancarie (IBAN), la scelta sul TFR e la patente.",
+    "controllo": ["iban", "tfr", "patente"]
+  },
+  {
+    "id": 2,
+    "domanda": "Con quanto preavviso si chiede un solo giorno di ferie?",
+    "risposta": "2 giorni lavorativi.",
+    "controllo": ["\\b(2|due) giorni lavorativi"]
+  },
+  {
+    "id": 3,
+    "domanda": "Per una trasferta di più di tre giorni posso chiedere un anticipo? Fino a quanto?",
+    "risposta": "Sì, fino a 300,00 €.",
+    "controllo": ["(\\b300([,.]00)?\\s*(€|euro)|(€|euro)\\s*300\\b)"]
+  },
+  {
+    "id": 4,
+    "domanda": "Quanto vale il buono pasto elettronico?",
+    "risposta": "8,00 € per ogni giornata che ne dà diritto.",
+    "controllo": ["(\\b8([,.]00)?\\s*(€|euro)|(€|euro)\\s*8\\b)"]
+  },
+  {
+    "id": 5,
+    "domanda": "Quante note spese sono ancora in attesa?",
+    "risposta": "115.",
+    "controllo": ["\\b115\\b"]
+  },
+  {
+    "id": 6,
+    "domanda": "Quanto hanno speso in note spese approvate i dipendenti della sede di Padova?",
+    "risposta": "29.940,27 €, su 502 note.",
+    "controllo": ["29[.\\s]?940[,.]27"]
+  },
+  {
+    "id": 7,
+    "domanda": "Nel file regolamento-ferie.md, quante ore di permessi ROL spettano in un anno a chi lavora a tempo pieno?",
+    "risposta": "72 ore (il file si chiama regolamento-ferie-permessi.pdf).",
+    "controllo": ["\\b72\\b"]
+  },
+  {
+    "id": 8,
+    "domanda": "Quante note spese in attesa hanno i dipendenti di Brescia, e quante quelli di Padova?",
+    "risposta": "78 a Brescia e 37 a Padova.",
+    "controllo": ["\\b78\\b", "\\b37\\b"]
+  },
+  {
+    "id": 9,
+    "domanda": "Da quando cambia il massimale della cena a Milano, e a quanto passa?",
+    "risposta": "Dal 1° luglio 2026 passa da 45,00 € a 55,00 €.",
+    "controllo": ["(luglio|2026-07|\\b0?1[/.]0?7\\b)", "\\b55\\b"]
+  },
+  {
+    "id": 10,
+    "domanda": "Al primo accesso al portale da un dispositivo nuovo, cosa mi viene chiesto?",
+    "risposta": "Il codice inviato al cellulare registrato.",
+    "controllo": ["codice", "cellular"]
+  }
+]

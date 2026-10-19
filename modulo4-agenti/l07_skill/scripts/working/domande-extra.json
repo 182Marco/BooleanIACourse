@@ -1,0 +1,26 @@
+[
+  {
+    "id": 11,
+    "domanda": "Ho cenato a Milano il 20 giugno 2026: qual è il massimale per la cena?",
+    "risposta": "45,00 €: i 55,00 € valgono per le spese dal 1° luglio 2026.",
+    "controllo": ["\\b45\\b"]
+  },
+  {
+    "id": 12,
+    "domanda": "La nota spese 1043 rispetta il massimale?",
+    "risposta": "Sì: è una cena a Milano del 14 luglio 2026 da 52,00 €, e dal 1° luglio il massimale è 55,00 €.",
+    "controllo": ["\\b52\\b", "\\b55\\b"]
+  },
+  {
+    "id": 13,
+    "domanda": "Chi ha più note spese respinte, e quante?",
+    "risposta": "Francesca Rizzo e Davide Bruno, 9 a testa.",
+    "controllo": ["rizzo", "bruno", "\\b9\\b"]
+  },
+  {
+    "id": 14,
+    "domanda": "Quanti giorni di ferie all'anno spettano a chi lavora part-time al 75%?",
+    "risposta": "19,5 giorni.",
+    "controllo": ["19[,.]5"]
+  }
+]
