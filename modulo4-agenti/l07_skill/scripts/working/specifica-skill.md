@@ -58,12 +58,49 @@ SKILL.md. Cosa fa la skill e quando usarla. Con il nome, è l'unica parte che il
 coding agent legge prima di decidere se aprire la skill: usate le parole con
 cui chiederete un report. -->
 
+```
+description: Fa il report mensile delle note spese (la pagina HTML di report.py e una sintesi di poche righe per l'ufficio del personale) per un mese AAAA-MM, controllando i dati e gli export. Usala quando si chiede il report, il riepilogo o la sintesi delle note spese o dei rimborsi di un mese.
+```
+
 ## Criteri di accettazione
 
-<!-- Da scrivere voi: quando la skill si deve caricare e quando no, cosa deve
-produrre, cosa deve fare quando i dati non tornano. Ogni criterio si verifica
-guardando la sessione, aprendo un file o lanciando un comando. Un esempio:
-«output/report-2026-07.html dice 164 note». -->
+Non usare la skill se esite già il report di questo mese
+
+Quando si carica (si vede nella sessione):
+
+- «fammi il report delle note spese di luglio 2026» e «mi serve il riepilogo
+  dei rimborsi di settembre» caricano `report-mensile`;
+- «quante note ha presentato Luca Ferri?», «aggiungi un test a rimborsi.py» e
+  «qual è il massimale della cena a Milano?» non la caricano.
+
+Cosa produce, con un mese tutto in `dati/note_spese.csv` (2026-07):
+
+- `dati_del_mese.py 2026-07` stampa 164 note e 8.963,53 € per
+  `note_spese.csv`, 0 note per `export-ottobre.csv`, nessuna città senza
+  massimale;
+- `output/report-2026-07.html` esiste e dice 164 note e 8.963,53 €;
+- `output/sintesi-2026-07.md` ha al massimo sei righe e riporta 164 note,
+  8.963,53 €, la sede che spende di più e il numero di note fuori massimale,
+  uguali a quelli del report;
+- nella sessione l'agente confronta note e totale del report con quelli dello
+  script prima di scrivere la sintesi.
+
+Quando i dati non tornano:
+
+- con 2026-09 lo script trova le note solo in `export-ottobre.csv`: 190 note,
+  9.934,75 €, la colonna `notti` che manca e la città Bologna senza
+  massimale; il report finale dice 190 note e 9.934,75 €, non un report vuoto;
+- se per farlo cambia `report.py`, c'è un test nuovo in `tests/` e `pytest`
+  passa; i report di 2026-07 escono uguali a prima;
+- la sintesi di 2026-09 segnala Bologna senza massimale e gli hotel senza
+  notti come cose da verificare, citando il documento di `ufficio-completo/`
+  che ha guardato; le note di Bologna non sono date per fuori massimale né per
+  regolari senza dirlo;
+- con un mese senza note (2026-12) l'agente si ferma e lo dice: nessun file in
+  `output/` per quel mese;
+- `git status dati/ ufficio-completo/` non mostra modifiche;
+- la sessione finisce con l'esito di `pytest` e un riepilogo di cosa è
+  cambiato negli script (o «nessuna modifica»).
 
 ## Cosa l'ha fatta caricare
 
