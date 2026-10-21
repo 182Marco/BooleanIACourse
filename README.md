@@ -54,7 +54,7 @@ Le lezioni pubblicate prima dell'introduzione dei due branch (settembre 2026) ha
 | Modulo 4 — Agenti | 5 | 2h | Un tool che esegue codice, sotto approvazione |
 | Modulo 4 — Agenti | 6 | 4h | Lab: l'assistente su cartella, rinforzato e sotto approvazione |
 | Modulo 4 — Agenti | 7 | 2h | Skill: istruzioni che l'agente carica quando servono |
-| Modulo 4 — Agenti | 8 | 2h | MCP: tool che girano in un altro processo |
+| Modulo 4 — Agenti | 8 | 2h | MCP: collegare il coding agent e l'assistente alle app |
 | Modulo 4 — Agenti | 9 | 4h | Lab: skill e MCP nel coding agent e nell'assistente |
 | Modulo 4 — Agenti | 10 | 2h | Più agenti nel coding agent: sub-agent, ruoli, stormi |
 | Modulo 4 — Agenti | 11 | 2h | Più agenti nell'SDK: chi decide i passaggi |
