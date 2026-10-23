@@ -1,0 +1,19 @@
+# la chiave
+.env
+.env.*
+!.env.example
+# il venv del modulo sta tre cartelle sopra, ma per sicurezza
+.venv/
+__pycache__/
+.pytest_cache/
+# le conversazioni salvate dall'assistente
+sessioni.db*
+# i run lasciati a metà, in attesa di un'approvazione
+stato-*.json
+# quello che scrivono i programmi
+output/
+# le approvazioni che Claude Code salva nella cartella
+.claude/settings.local.json
+
+# i token dei login alle app (login_mcp.py): sono le chiavi dei vostri account
+.mcp-token/
